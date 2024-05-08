@@ -174,6 +174,7 @@ export function PlaceholdersAndVanishInput({
         ref={canvasRef}
       />
       <input
+      aria-label="search keywords"
         onChange={(e) => {
           if (!animating) {
             setValue(e.target.value);
@@ -191,6 +192,7 @@ export function PlaceholdersAndVanishInput({
       />
 
       <button
+      aria-label="Submit Form"
         disabled={!value}
         type="submit"
         className="absolute right-2 top-1/2 z-50 -translate-y-1/2 h-8 w-8 rounded-full  bg-zinc-900 disabled:bg-zinc-800 transition duration-200 flex items-center justify-center"

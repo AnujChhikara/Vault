@@ -55,7 +55,7 @@ const items = [
 export default function CodeSnippets() {
   return (
     <div className="flex flex-col justify-center items-center space-y-8">
-        <h3 className="text-3xl font-semibold">Get Started </h3>
+        <p className="text-3xl font-semibold">Get Started </p>
            <BentoGrid className="max-w-4xl mx-auto">
       {items.map((item, i) => (
         <BentoGridItem
