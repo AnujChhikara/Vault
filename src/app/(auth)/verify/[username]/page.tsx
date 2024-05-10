@@ -62,7 +62,7 @@ export default function VerifyAccount() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Verification Code</FormLabel>
-                  <Input {...field} />
+                  <Input className='bg-transparent border-zinc-800' {...field} name='verify-code' />
                   <FormMessage />
                 </FormItem>
               )}

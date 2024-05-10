@@ -16,10 +16,11 @@ import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { useToast } from '@/components/ui/use-toast';
 import { signInSchema } from '@/schemas/signInSchema';
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
+import { useState } from 'react';
 
 export default function SignInForm() {
-  const router = useRouter();
+ const[isLoggedIn, setIsLoggedIn] = useState(false)
 
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -37,24 +38,31 @@ export default function SignInForm() {
       password: data.password,
     });
 
-    if (result?.error) {
-      if (result.error === 'CredentialsSignin') {
+    if (!result?.ok) {
+     
         toast({
           title: 'Login Failed',
           description: 'Incorrect username or password',
           variant: 'destructive',
         });
-      } else {
-        toast({
-          title: 'Error',
-          description: result.error,
-          variant: 'destructive',
-        });
-      }
+    
     }
-    console.log(result)
+
+    if(result!.ok){
+        toast({
+          title: 'Login Successfully',
+          description: 'you have been logged in successfully',
+  
+        });
+    
+      setIsLoggedIn(true)
+    }
 
   };
+
+  if(isLoggedIn){
+    redirect('/')
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-black/[0.96]">
