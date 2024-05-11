@@ -18,9 +18,11 @@ import { useToast } from '@/components/ui/use-toast';
 import { signInSchema } from '@/schemas/signInSchema';
 import { redirect } from 'next/navigation';
 import { useState } from 'react';
+import { Loader2 } from 'lucide-react';
 
 export default function SignInForm() {
  const[isLoggedIn, setIsLoggedIn] = useState(false)
+const [isSubmitting, setIsSubmitting] = useState(false)
 
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -32,6 +34,7 @@ export default function SignInForm() {
 
   const { toast } = useToast();
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
+     setIsSubmitting(true)
     const result = await signIn('credentials', {
       redirect: false,
       identifier: data.identifier,
@@ -39,7 +42,7 @@ export default function SignInForm() {
     });
 
     if (!result?.ok) {
-     
+     setIsSubmitting(false)
         toast({
           title: 'Login Failed',
           description: 'Incorrect username or password',
@@ -49,12 +52,13 @@ export default function SignInForm() {
     }
 
     if(result!.ok){
+      setIsSubmitting(false)
         toast({
           title: 'Login Successfully',
           description: 'you have been logged in successfully',
   
         });
-    
+    setIsSubmitting(false)
       setIsLoggedIn(true)
     }
 
@@ -97,7 +101,16 @@ export default function SignInForm() {
                 </FormItem>
               )}
             />
-            <Button className='w-full py-6 text-lg' type="submit">Sign In</Button>
+            <Button type="submit" className='w-full' disabled={isSubmitting}>
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please wait
+                </>
+              ) : (
+                'Sign Up'
+              )}
+            </Button>
           </form>
         </Form>
         <div className="text-center mt-4">

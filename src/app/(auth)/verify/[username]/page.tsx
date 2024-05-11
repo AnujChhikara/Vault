@@ -34,7 +34,7 @@ export default function VerifyAccount() {
       description:response.data.message
     })
 
-    router.replace('/sign-in')
+    router.replace('/Sign-in')
   } catch (error) {
      const axiosError = error as AxiosError<ApiResponse>;
       let errorMessage = axiosError.response?.data.message

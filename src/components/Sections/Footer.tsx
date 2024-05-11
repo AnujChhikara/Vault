@@ -23,7 +23,7 @@ export default function Footer() {
         <Separator orientation="vertical" />
         <a className='flex items-center space-x-1' href="https://github.com/AnujChhikara"> <Github /><p>Github</p> </a>
         <Separator orientation="vertical" />
-        <a className='flex items-center space-x-1' href="https://github.com/AnujChhikara"> <Linkedin /><p>LinkedIn</p> </a>
+        <a className='flex items-end space-x-1' href="https://github.com/AnujChhikara"> <Linkedin /><p >LinkedIn</p> </a>
         
       </div>
     </div>
