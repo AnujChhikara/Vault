@@ -22,7 +22,7 @@ import { Loader2 } from 'lucide-react';
 
 export default function SignInForm() {
  const[isLoggedIn, setIsLoggedIn] = useState(false)
-const [isSubmitting, setIsSubmitting] = useState(false)
+ const [isSubmitting, setIsSubmitting] = useState(false)
 
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),

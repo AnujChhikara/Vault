@@ -9,6 +9,15 @@ export async function POST(request:Request){
     try {
          
         const {title, keywords, code, dependencies, note, userId} = await request.json()
+        if (!title || !keywords || !code || !dependencies || !note || !userId) {
+             return Response.json( {
+            success:false,
+            message:"One or more required fields are missing.",
+    
+        },{
+            status:400
+        })
+        }
         const codeSnippet = await CodeSnippetModel.create({
             title,
             code,

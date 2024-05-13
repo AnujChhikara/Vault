@@ -124,3 +124,11 @@
   cursor: pointer;
   color: white;
 }
+
+
+.code {
+  white-space: pre-wrap; /* Preserve line breaks */
+  font-family: monospace; /* Use a monospace font for consistent spacing */
+  font-size: 14px; /* Adjust font size as needed */
+  /* Add any other styling you want */
+}

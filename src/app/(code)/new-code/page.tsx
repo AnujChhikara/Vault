@@ -42,10 +42,19 @@ export default function NewCode() {
      data.userId = user._id;
       try {
      const response = await axios.post('/api/new-code', data)
-     toast({
+     if(response.data.success){
+         toast({
       title:'Success',
       description:response.data.message
      })
+     } else{
+          toast({
+      title:'failed',
+      description:response.data.message,
+      variant:'destructive'
+     })
+     }
+    
 
      router.replace(`/`)
      setIsSubmitting(false)
