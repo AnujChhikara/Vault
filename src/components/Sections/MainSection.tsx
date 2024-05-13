@@ -29,14 +29,10 @@ export default function MainSection() {
       text: "on",
     },
     {
-      text: "Problem",
+      text: "Logic",
       className: "text-blue-500 ",
     },
     
-    {
-      text: "solving,",
-      className: "text-blue-500",
-    },
     {
       text: "Not",
     },
@@ -64,7 +60,7 @@ export default function MainSection() {
       <div className='flex flex-col items-center pt-20 space-y-16'>
         {/* logo */} 
         <div className="flex justify-center items-center">
-        <Image width={120} height={120} src="https://res.cloudinary.com/dlahahicg/image/upload/v1715159647/1_oj2rgu.png" alt="logo"/>
+        <Image width={100} height={100} src="https://res.cloudinary.com/dlahahicg/image/upload/v1715159647/1_oj2rgu.png" alt="logo"/>
         <div className="flex flex-col  items-start">
         <h1 className="text-7xl font-bold ">DevVault</h1>
         <div className="relative w-96 ">

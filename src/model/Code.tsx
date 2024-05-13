@@ -1,4 +1,4 @@
-import mongoose, {Schema, Document} from "mongoose";
+import mongoose, {Schema} from "mongoose";
 import { User} from "./User";
 export interface CodeSnippet {
     title: string;
