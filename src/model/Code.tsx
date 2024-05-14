@@ -2,11 +2,12 @@ import mongoose, {Schema} from "mongoose";
 import { User} from "./User";
 export interface CodeSnippet {
     title: string;
-    keywords: string[];
-    dependencies: string[];
+    keywords: string;
+    dependencies: string;
     code: string;
     owner: Schema.Types.ObjectId | User["_id"];
     upvotes: number;
+    note:string;
     createdAt: Date;
 }
 
@@ -15,13 +16,19 @@ const CodeSnippetSchema: Schema<CodeSnippet> = new Schema({
         type: String,
         required: [true, 'Title is required']
     },
+    
+    note: {
+        type: String,
+      
+    },
     keywords: {
-        type: [String],
-        default: []
+        type: String,
+        required:[true, "Keywords are required"]
+    
     },
     dependencies: {
-        type: [String],
-        default: []
+        type: String,
+       
     },
     code: {
         type: String,

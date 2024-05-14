@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import { useSession, signOut } from 'next-auth/react';
 import { User } from 'next-auth';
+import { PlusCircle } from 'lucide-react';
 
 
 
@@ -26,12 +27,13 @@ export default function Navbar() {
              {user?.username![0].toUpperCase()  }
              </p>
             </Link>
-            
+           <Link href='/new-code'><PlusCircle  size={36}/></Link>
             <button onClick={handleSignOut} className="inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium  rounded-lg group bg-gradient-to-br from-zinc-500 to-zinc-800   text-white">
                 <span className=" px-3 py-2 transition-all ease-in duration-300 bg-zinc-900 rounded-md group-hover:bg-opacity-50">
                 Logout
                 </span>
                 </button>
+                
           </div>
         ) : (
           <>

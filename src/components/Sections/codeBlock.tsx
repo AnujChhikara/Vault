@@ -3,11 +3,10 @@ import Link from 'next/link'
 import React from 'react'
 
 export default function CodeBlock({title,id, owner, upvote, keywords}:{title:string,id:string, owner:string, upvote:string, keywords:string}) {
-  const keywordArray = keywords.split(',').map(keyword => keyword.trim());
     return (
-    <div className='border w-[600px] h-40 flex flex-col rounded-xl justify-start items-start p-4'>
+    <Link href={`/code/${id}`} className='border-double border-cyan-500 border-4 bg-zinc-800 hover:bg-zinc-900 duration-300 w-[600px] h-40 flex flex-col rounded-xl justify-around items-start p-4'>
     <div className='flex justify-between w-full'>
-     <Link href={`/code/${id}`}><h3 className='text-xl flex font-bold text-gray-300'>{title} <p className='mt-1 ml-2 underline'> <MoveUpRight /></p></h3></Link>
+     <h3 className='text-xl flex font-bold'>{title}</h3>
      <div className='flex  space-x-2 text-white items-center'>
        {/* TODO: make buttons to upvote and downvote and check id user already clciked it or not*/}
         <p className='text-2xl text-green-400 font-bold'>{upvote}</p>
@@ -15,12 +14,18 @@ export default function CodeBlock({title,id, owner, upvote, keywords}:{title:str
         <button className='rotate-180'><ArrowBigUp size={40} /></button>
     </div>
         </div>
-        <div>
-            {keywordArray[2]}
-        </div>
+       
+        <div className='flex space-x-2'>{
+         keywords.split(',').map((keyword:any, index:any) => (
+         <span key={index} className='bg-zinc-900 hover:bg-zinc-600 font-semibold duration-500 px-2 py-1 rounded-lg'>
+        {keyword}
+        </span>
+        ))                                    
+         }</div>
+       
        <div className='flex space-x-1'><p>by:</p> 
-       <Link href={`/profile/${owner}`}>{owner}</Link>
+       <Link className='underline font-bold' href={`/profile/${owner}`}>{owner}</Link>
         </div>
-    </div>
+    </Link>
   )
 }
