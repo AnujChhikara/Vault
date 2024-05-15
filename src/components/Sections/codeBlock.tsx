@@ -1,8 +1,39 @@
-import { ArrowBigUp, MoveUpRight } from 'lucide-react'
+import { ApiResponse } from '@/types/ApiResponse'
+import axios, { AxiosError } from 'axios'
+import { ArrowBigUp} from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
+import { useToast } from '../ui/use-toast'
 
 export default function CodeBlock({title,id, owner, upvote, keywords}:{title:string,id:string, owner:string, upvote:string, keywords:string}) {
+ const {toast} = useToast()
+  const onUpvote = async() =>{
+     try {
+                const response = await axios.get( `/api/upvote?codeId=${id}`)
+                const data = response.data
+                toast({
+                    title:'Code Upvote',
+                    description:data.message
+                })
+            } catch (error) {
+                const axiosError = error as AxiosError<ApiResponse>;
+                console.log(axiosError.response?.data)
+              
+            }
+}
+const onDownvote = async() =>{
+     try {
+                const response = await axios.get( `/api/downvote?codeId=${id}`)
+                const data = response.data
+                toast({
+                    title:'Code Downvote',
+                    description:data.message
+                })
+            } catch (error) {
+                const axiosError = error as AxiosError<ApiResponse>;
+                console.log(axiosError.response?.data)
+            }
+}
     return (
     <Link href={`/code/${id}`} className='border-double border-cyan-500 border-4 bg-zinc-800 hover:bg-zinc-900 duration-300 w-[600px] h-40 flex flex-col rounded-xl justify-around items-start p-4'>
     <div className='flex justify-between w-full'>
@@ -10,8 +41,8 @@ export default function CodeBlock({title,id, owner, upvote, keywords}:{title:str
      <div className='flex  space-x-2 text-white items-center'>
        {/* TODO: make buttons to upvote and downvote and check id user already clciked it or not*/}
         <p className='text-2xl text-green-400 font-bold'>{upvote}</p>
-        <button><ArrowBigUp size={40} /></button>
-        <button className='rotate-180'><ArrowBigUp size={40} /></button>
+        <button onClick={onUpvote}><ArrowBigUp size={40} /></button>
+        <button onClick={onDownvote} className='rotate-180'><ArrowBigUp size={40} /></button>
     </div>
         </div>
        

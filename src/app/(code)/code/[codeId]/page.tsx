@@ -63,14 +63,50 @@ export default function Code() {
         }
     },[codeData])
 
-      const handleClick = (code:any) =>{
+//copy to clipboard
+const handleClick = (code:any) =>{
      navigator.clipboard.writeText(code)
        toast({
         title:'Copied',
         description:'Code has been copied to your clipboard'
      })
-
   }
+
+
+
+//upvote and downvote code
+
+const onUpvote = async() =>{
+     try {
+                const response = await axios.get( `/api/upvote?codeId=${codeData._id}`)
+                const data = response.data
+                toast({
+                    title:'Code Upvote',
+                    description:data.message
+                })
+            } catch (error) {
+                const axiosError = error as AxiosError<ApiResponse>;
+                console.log(axiosError.response?.data)
+               
+              
+            }
+}
+const onDownvote = async() =>{
+     try {
+                const response = await axios.get( `/api/downvote?codeId=${codeData._id}`)
+                const data = response.data
+                toast({
+                    title:'Code Downvote',
+                    description:data.message
+                })
+            } catch (error) {
+                const axiosError = error as AxiosError<ApiResponse>;
+                console.log(axiosError.response?.data)
+              
+              
+            }
+}
+
   return (
     <div className='bg-black/[0.96] min-h-screen text-white'>
          {loading ? (   
@@ -89,8 +125,8 @@ export default function Code() {
                                 }
                                 <div className='flex  space-x-2 text-white items-center'>
                                 <p className='text-2xl text-green-400 font-bold'>{codeData.upvotes}</p>
-                                <button><ArrowBigUp size={40} /></button>
-                                    <button className='rotate-180'><ArrowBigUp size={40} /></button>
+                                <button onClick={onUpvote}><ArrowBigUp size={40} /></button>
+                                    <button onClick={onDownvote} className='rotate-180'><ArrowBigUp size={40} /></button>
                                 </div>
                             </div>
                                </div>
