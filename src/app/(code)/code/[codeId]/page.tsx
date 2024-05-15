@@ -2,6 +2,8 @@
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ApiResponse } from '@/types/ApiResponse';
 import axios, { AxiosError } from 'axios';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import {atomOneDark} from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
@@ -72,13 +74,13 @@ export default function Code() {
   return (
     <div className='bg-black/[0.96] min-h-screen text-white'>
          {loading ? (   
-                <div className="flex flex-col justify-center items-center space-y-4 min-h-screen">
+                <div className="flex flex-col justify-center items-center space-y-4 min-h-screen ">
                     <p>Loading...</p>
                 </div>
             ) : <div>
                     {
                         codeData? (
-                            <div className='flex flex-col space-y-4 w-5/6 items-start px-20  pt-12'>
+                            <div className='flex flex-col space-y-4 w-5/6 items-start px-20  pt-12 pb-20'>
                                <div className='flex justify-between space-x-4 items-start pb-6'>
                                 <h4 className='text-5xl font-semibold '>{codeData.title}</h4>
                                    <div className='flex space-x-8'>
@@ -114,9 +116,14 @@ export default function Code() {
                                     }</div>
                                     </div>
                               
-                                <ScrollArea className="h-[600px] w-full rounded-xl bg-[#1b1b1b] px-2 py-4">
-                                    <button onClick={() => handleClick(codeData.code)} className='flex justify-end items-end w-full pr-4'><Copy/></button>
-                                    <pre className="code">{codeData.code}</pre>
+                                <ScrollArea className="h-[600px] w-full rounded-xl bg-[#282c34] px-2 py-4">
+                                    <div className='flex justify-end items-end'>
+                                    <button onClick={() => handleClick(codeData.code)} className='  pr-4'><Copy/></button>
+                                     </div>
+                                        <SyntaxHighlighter language="javascript" style={atomOneDark}>
+                                        {codeData.code}
+                                        </SyntaxHighlighter>
+                                    
                                 </ScrollArea>
 
                                 <div className='flex space-x-4 items-center'>
