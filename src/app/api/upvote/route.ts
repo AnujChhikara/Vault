@@ -18,12 +18,12 @@ export async function GET(request: Request) {
         else if(vote.vote === -1){
             await VotingModel.findByIdAndUpdate(vote?._id, { $inc: {vote:2} },
             { new: true })
-            return Response.json({ success: true, message: "upvoted successfully" }, { status: 200 });
+            return Response.json({ success: true, message: "upvoted successfully", data:vote }, { status: 200 });
         }
         else if(vote.vote === 0){
-            await VotingModel.findByIdAndUpdate(vote?._id, { $inc: {vote:1} },
+           const newVote = await VotingModel.findByIdAndUpdate(vote?._id, { $inc: {vote:1} },
             { new: true })
-            return Response.json({ success: true, message: "upvoted successfully" }, { status: 200 });
+            return Response.json({ success: true, message: "upvoted successfully", data:newVote }, { status: 200 });
         }
     
     } 
