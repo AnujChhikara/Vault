@@ -25,15 +25,11 @@ export async function GET(request: Request) {
             { new: true })
             return Response.json({ success: true, message: "upvoted successfully", data:newVote }, { status: 200 });
         }
-    
     } 
-
 
             const newVote = await VotingModel.create({ userId, codeId, vote: 1 });
             await newVote.save();
             return Response.json({ success: true, message: "upvoted successfully" }, { status: 200 });
-       
-        
        
     } catch (error) {
         console.log('Error while upvoting', error);

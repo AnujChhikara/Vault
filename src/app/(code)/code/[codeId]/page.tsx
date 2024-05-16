@@ -10,8 +10,12 @@ import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import { ArrowBigUp, Copy } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { User } from 'next-auth';
 
 export default function Code() {
+    const { data: session } = useSession();
+   const user : User = session?.user as User
     const params = useParams<{ codeId: string }>();
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
@@ -122,6 +126,8 @@ export default function Code() {
         }                              
     };
 
+    console.log(user)
+
     return (
         <div className='bg-black/[0.96] min-h-screen text-white'>
             {loading ? (
@@ -136,7 +142,8 @@ export default function Code() {
                                 <h4 className='text-5xl font-semibold'>{codeData.title}</h4>
                                 <div className='flex space-x-8'>
                                  
-                                    <div className='flex space-x-2 text-white items-center'>
+                                   {
+                                    user?._id != codeData.owner &&  <div className='flex space-x-2 text-white items-center'>
                                         <button onClick={handleUpvote} disabled={voteStatus === 1}>
                                             <ArrowBigUp size={40} className={voteStatus === 1 ? 'bg-green-600 rounded-lg' : ''} />
                                         </button>
@@ -144,6 +151,7 @@ export default function Code() {
                                             <ArrowBigUp size={40} className={voteStatus === -1 ? 'bg-red-500 rounded-lg' : ''} />
                                         </button>
                                     </div>
+                                   }
                                        {userData && (
                                         <Link className='flex items-center justify-end space-x-1' href={`/profile/${userData.username}`}>
                                             <p className='font-bold text-zinc-400'>by:</p>
