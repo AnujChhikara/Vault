@@ -1,6 +1,5 @@
 import mongoose, {Schema, Document} from "mongoose";
 
-
 export interface User extends Document{
     username:string;
     email:string;
@@ -10,9 +9,6 @@ export interface User extends Document{
     isVerified:boolean;
     codeCred: number;
 }
-
-
-
 
 const UserSchema:Schema<User> = new Schema({
     username:{

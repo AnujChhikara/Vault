@@ -7,6 +7,7 @@ export interface CodeSnippet {
     code: string;
     owner: Schema.Types.ObjectId | User["_id"];
     upvotes: number;
+    downvotes: number;
     note:string;
     createdAt: Date;
 }
@@ -42,6 +43,10 @@ const CodeSnippetSchema: Schema<CodeSnippet> = new Schema({
     upvotes: {
         type: Number,
         default: 0
+    },
+    downvotes:{
+        type: Number,
+        default: 0 
     },
     createdAt: {
         type: Date,

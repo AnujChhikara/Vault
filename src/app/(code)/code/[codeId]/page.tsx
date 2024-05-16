@@ -78,7 +78,7 @@ const handleClick = (code:any) =>{
 
 const onUpvote = async() =>{
      try {
-                const response = await axios.get( `/api/upvote?codeId=${codeData._id}`)
+                const response = await axios.get( `/api/upvote?codeId=${codeData._id}&userId=${userData._id}`)
                 const data = response.data
                 toast({
                     title:'Code Upvote',
@@ -93,7 +93,7 @@ const onUpvote = async() =>{
 }
 const onDownvote = async() =>{
      try {
-                const response = await axios.get( `/api/downvote?codeId=${codeData._id}`)
+                const response = await axios.get( `/api/downvote?codeId=${codeData._id}&userId=${userData._id}`)
                 const data = response.data
                 toast({
                     title:'Code Downvote',
