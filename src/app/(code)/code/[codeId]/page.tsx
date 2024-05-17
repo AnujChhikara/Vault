@@ -15,16 +15,18 @@ import { User } from 'next-auth';
 
 export default function Code() {
     const { data: session } = useSession();
-   const user : User = session?.user as User
+    const user: User = session?.user as User;
     const params = useParams<{ codeId: string }>();
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
     const [codeData, setCodeData] = useState<any>();
     const [userData, setUserData] = useState<any>();
-    const [voteStatus, setVoteStatus] = useState<number>(0);
+    const [voteStatus, setVoteStatus] = useState<any>('');
+    const [votes, setVotes] = useState<number>(0);
     const codeId = params.codeId;
     const { toast } = useToast();
 
+    // Fetch code details when component mounts or codeId changes
     useEffect(() => {
         const getCodeDetails = async () => {
             try {
@@ -46,6 +48,7 @@ export default function Code() {
         }
     }, [codeId]);
 
+    // Fetch user profile when codeData is set
     useEffect(() => {
         const getUserProfile = async () => {
             if (codeData && codeData.owner) {
@@ -67,6 +70,7 @@ export default function Code() {
         }
     }, [codeData]);
 
+    // Check vote status when codeData and userData are set
     useEffect(() => {
         const checkVoteStatus = async () => {
             if (codeData && userData) {
@@ -85,6 +89,26 @@ export default function Code() {
             checkVoteStatus();
         }
     }, [codeData, userData]);
+
+    // Check votes count when codeData or voteStatus changes
+    useEffect(() => {
+        const checkVotesCount = async () => {
+            if (codeData) {
+                try {
+                    const response = await axios.get(`/api/total-votes?codeId=${codeData._id}`);
+                    const data = response.data.data;
+                    setVotes(data[0].totalVotes);
+                } catch (error) {
+                    const axiosError = error as AxiosError<ApiResponse>;
+                    setErrorMessage(axiosError.response?.data.message || 'Error fetching vote status');
+                }
+            }
+        };
+
+        if (codeData) {
+            checkVotesCount();
+        }
+    }, [codeData, voteStatus]);
 
     const handleCopy = (code: string) => {
         navigator.clipboard.writeText(code);
@@ -123,10 +147,8 @@ export default function Code() {
             } catch (error) {
                 console.error('Error downvoting code:', error);
             }
-        }                              
+        }
     };
-
-    console.log(user)
 
     return (
         <div className='bg-black/[0.96] min-h-screen text-white'>
@@ -141,18 +163,21 @@ export default function Code() {
                             <div className='flex justify-between space-x-4 items-start pb-6'>
                                 <h4 className='text-5xl font-semibold'>{codeData.title}</h4>
                                 <div className='flex space-x-8'>
-                                 
-                                   {
-                                    user?._id != codeData.owner &&  <div className='flex space-x-2 text-white items-center'>
-                                        <button onClick={handleUpvote} disabled={voteStatus === 1}>
-                                            <ArrowBigUp size={40} className={voteStatus === 1 ? 'bg-green-600 rounded-lg' : ''} />
-                                        </button>
-                                        <button onClick={handleDownvote} disabled={voteStatus === -1} className='rotate-180'>
-                                            <ArrowBigUp size={40} className={voteStatus === -1 ? 'bg-red-500 rounded-lg' : ''} />
-                                        </button>
+                                    <div className='flex items-center space-x-4 border border-zinc-700 px-4 py-1 rounded-3xl'>
+                                        {votes && <p className='font-bold w-4'>{votes}</p>}
+                                        {user?._id != codeData.owner && (
+                                            <div className='flex space-x-2 text-white items-center'>
+                                                <button onClick={handleUpvote} disabled={voteStatus === 1}>
+                                                    <ArrowBigUp size={29} className={voteStatus === 1 ? 'bg-green-600 rounded-lg' : ''} />
+                                                </button>
+                                                <p className='text-zinc-700'>|</p>
+                                                <button onClick={handleDownvote} disabled={voteStatus === -1} className='rotate-180'>
+                                                    <ArrowBigUp size={29} className={voteStatus === -1 ? 'bg-red-500 rounded-lg' : ''} />
+                                                </button>
+                                            </div>
+                                        )}
                                     </div>
-                                   }
-                                       {userData && (
+                                    {userData && (
                                         <Link className='flex items-center justify-end space-x-1' href={`/profile/${userData.username}`}>
                                             <p className='font-bold text-zinc-400'>by:</p>
                                             <h5 className='underline text-xl font-bold'>{userData.username}</h5>

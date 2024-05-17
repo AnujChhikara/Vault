@@ -19,7 +19,6 @@ export default function CodeBlock({title,id, owner, keywords}:{title:string,id:s
          }</div>
        
        <div className='flex space-x-1'><p>by:</p> 
-       <Link className='underline font-bold' href={`/profile/${owner}`}>{owner}</Link>
         </div>
     </Link>
   )

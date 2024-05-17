@@ -15,24 +15,29 @@ export async function GET(request: Request) {
         const data = await VotingModel.aggregate([
             {
                 $match: {
-                    codeId: codeId
+                    codeId: codeId  // Match documents with the specific codeId
                 }
             },
             {
                 $group: {
-                    _id: codeId,
+                    _id: "$codeId",
                     totalVotes: { $sum: "$vote" }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    codeId: "$_id",
+                    totalVotes: 1
                 }
             }
         ]);
 
         if (data.length === 0) {
-            return Response.json({ success: false, message: "No data found for the provided codeId" }, { status: 404 });
+            return Response.json({ success: false, message: "No votes found for the specified codeId" }, { status: 404 });
         }
 
-        const totalVotes = data[0].totalVotes;
-
-        return Response.json({ success: true, totalVotes }, { status: 200 });
+        return Response.json({ success: true, data }, { status: 200 });
 
     } catch (error) {
         console.log('Error while retrieving total votes', error);
