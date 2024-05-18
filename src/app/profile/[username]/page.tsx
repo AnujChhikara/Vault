@@ -15,6 +15,7 @@ export default function Profile() {
     const [userData, setUserData] = useState<any>()
     const [loading, setLoading] = useState(true); 
     const [userCodeData,setUserCodeData] = useState<any>()
+    const[cred, setCred] = useState(0);
 
     useEffect(()=>{
         const gettingUserProfile = async() =>{
@@ -59,6 +60,25 @@ export default function Profile() {
             gettingUserCodeSnippets()
         }
     },[userData])
+
+    useEffect(() => {
+        const getUserCodesVotes = async () => {
+            if (userData) {
+                try {
+                    const response = await axios.get(`/api/userTotalVotes?userId=${userData._id}`);
+                    const data = response.data.data;
+                    setCred(data[0].totalVotes)
+                } catch (error) {
+                    const axiosError = error as AxiosError<ApiResponse>;
+                    setErrorMessage(axiosError.response?.data.message || 'Error fetching vote status');
+                }
+            }
+        };
+
+        if (userData) {
+            getUserCodesVotes();
+        }
+    }, [userData]);
  
 
   return (
@@ -70,7 +90,7 @@ export default function Profile() {
             ) : userData ? (
                 <div className='flex flex-col space-y-12 w-5/6  pt-12 px-20'>
                   <h3 className='text-2xl font-semibold'>Username:- {userData.username}</h3>
-                  <p className='font-semibold text-2xl'>CodeCred:- {userData.codeCred}</p>
+                  <p className='font-semibold text-2xl'>CodeCred:- {cred}</p>
                   <div className=' mt-20 flex flex-col space-y-4'>
                     <p className='text-2xl font-semibold underline'>Code Snippets:-</p>
                 
