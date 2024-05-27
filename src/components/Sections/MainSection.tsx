@@ -5,6 +5,7 @@ import { TypewriterEffectSmooth } from "../ui/typewriter-effect";
 import { Spotlight } from '../ui/Spotlight';
 import Navbar from './Navbar';
 import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input";
+import Search from './Search';
 export default function MainSection() {
 
     const placeholders = [
@@ -77,11 +78,12 @@ export default function MainSection() {
 
         <TypewriterEffectSmooth words={words} />
         {/* Search */}
-        <PlaceholdersAndVanishInput
+        <Search/>
+        {/* <PlaceholdersAndVanishInput
         placeholders={placeholders}
         onChange={handleChange}
         onSubmit={onSubmit}
-      />
+      /> */}
       {/* brief info */}
        <p
             className="mt-4 font-semibold  text-neutral-300 max-w-3xl mx-auto"

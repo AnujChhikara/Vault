@@ -25,7 +25,16 @@ export default function Navbar() {
     <div className='flex w-screen space-x-4 justify-end items-center pr-8'>
       {session ? (
           <div className='flex space-x-3 py-4 items-start'>
-             <HoverCard>
+             
+            
+            
+            <HoverCard>
+              <HoverCardTrigger><Link href="/trending"><TrendingUp size={32}/></Link></HoverCardTrigger>
+              <HoverCardContent className='bg-black border-none text-[12px] w-32 text-white '>
+                Trending Codes
+              </HoverCardContent>
+            </HoverCard>
+              <HoverCard>
               <HoverCardTrigger> 
                 <Link href={`/profile/${user?.username}`} className="">
              <p 
@@ -37,15 +46,7 @@ export default function Navbar() {
               <HoverCardContent className='bg-black border-none text-center text-[12px] w-32 text-white '>
                 Profile
               </HoverCardContent>
-            </HoverCard>
-            
-            
-            <HoverCard>
-              <HoverCardTrigger><Link href="/trending"><TrendingUp size={32}/></Link></HoverCardTrigger>
-              <HoverCardContent className='bg-black border-none text-[12px] w-32 text-white '>
-                Trending Codes
-              </HoverCardContent>
-            </HoverCard>
+            </HoverCard>           
             
             <HoverCard>
               <HoverCardTrigger> <Link href='/new-code'><PlusCircle  size={36}/></Link></HoverCardTrigger>
@@ -53,6 +54,7 @@ export default function Navbar() {
                 Add New Code
               </HoverCardContent>
             </HoverCard>
+          
           
             <button onClick={handleSignOut} className="inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium  rounded-lg group bg-gradient-to-br from-zinc-500 to-zinc-800   text-white">
                 <span className=" px-3 py-2 transition-all ease-in duration-300 bg-zinc-900 rounded-md group-hover:bg-opacity-50">

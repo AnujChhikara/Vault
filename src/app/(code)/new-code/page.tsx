@@ -11,7 +11,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useRouter } from "next/navigation"
 import { useToast } from '@/components/ui/use-toast';
-import { redirect } from 'next/navigation';
 import { useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { Loader2 } from 'lucide-react';

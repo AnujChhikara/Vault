@@ -6,12 +6,23 @@ import axios, { AxiosError } from 'axios';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import { ArrowBigUp, Copy } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { User } from 'next-auth';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export default function Code() {
     const { data: session } = useSession();
@@ -25,6 +36,7 @@ export default function Code() {
     const [votes, setVotes] = useState<number>(0);
     const codeId = params.codeId;
     const { toast } = useToast();
+    const router = useRouter();
 
     // Fetch code details when component mounts or codeId changes
     useEffect(() => {
@@ -47,6 +59,31 @@ export default function Code() {
             getCodeDetails();
         }
     }, [codeId]);
+
+    const handleDeleteCode = async() => {
+         try {
+                const response = await axios.delete(`/api/delete-code?codeId=${codeId}`);
+                const data = response.data.data;
+                if (data) {
+                    toast({
+                        title: 'Deleted',
+                        description: 'Code has been deleted successfully',
+                    });
+                    router.push('/');
+                    
+                    
+                }
+            } catch (error) {
+                 toast({
+                        title: 'Failed!',
+                        description: 'failed to delete code snippet',
+                        variant:'destructive'
+                    });
+                const axiosError = error as AxiosError<ApiResponse>;
+                setErrorMessage(axiosError.response?.data.message || 'Error fetching code details');
+                setLoading(false);
+            }
+    }
 
     // Fetch user profile when codeData is set
     useEffect(() => {
@@ -197,7 +234,7 @@ export default function Code() {
                             </div>
                             <div className='flex flex-col space-y-4 items-start'>
                                 <p className='text-xl font-semibold'>Dependencies</p>
-                                <div className='flex flex-col items-start space-y-2 bg-[#1b1b1b] px-2 py-4 rounded-lg w-full'>
+                                <div className='flex flex-col items-start space-y-2  px-2 py-4 rounded-lg w-full'>
                                     {codeData.dependencies.split(',').map((dep: string, index: number) => (
                                         <span key={index} className='bg-zinc-800 hover:bg-zinc-600 font-semibold duration-500 px-4 py-2 rounded-lg'>
                                             • {dep}
@@ -219,6 +256,29 @@ export default function Code() {
                                 <p className='text-xl'>Note:</p>
                                 <p className='text-zinc-200 text-sm'>{codeData.note}</p>
                             </div>
+                        {
+                            user._id === codeData.owner && 
+                            <div>
+                                <AlertDialog>
+                                    <AlertDialogTrigger> <div className='bg-red-600 hover:bg-red-600 duration-300 bg-opacity-60 px-4 py-2 rounded-lg'>Delete</div></AlertDialogTrigger>
+                                    <AlertDialogContent className='bg-black text-white border-none'>
+                                        <AlertDialogHeader>
+                                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                        <AlertDialogDescription>
+                                            This action cannot be undone. This will permanently delete your code snippet
+                                            and remove your data from our servers.
+                                        </AlertDialogDescription>
+                                        </AlertDialogHeader>
+                                        <AlertDialogFooter>
+                                        <AlertDialogCancel className='bg-black text-white'>Cancel</AlertDialogCancel>
+                                        <AlertDialogAction onClick={handleDeleteCode}>Continue</AlertDialogAction>
+                                        </AlertDialogFooter>
+                                    </AlertDialogContent>
+                                    </AlertDialog>
+                               
+                            </div>
+                                }
+                          
                         </div>
                     ) : (
                         <div className="flex flex-col justify-center items-center space-y-4 min-h-screen">
