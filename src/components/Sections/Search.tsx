@@ -36,7 +36,7 @@ const SearchBar: React.FC = () => {
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push(`/search?q=${query}`);
+    router.push(`/search/${query}`);
   };
 
   return (
