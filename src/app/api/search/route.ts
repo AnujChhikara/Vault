@@ -8,18 +8,16 @@ export async function GET(request:Request){
     try {
         const {searchParams} = new URL(request.url)
         const queryParam = {
-            username:searchParams.get('username')
+            query:searchParams.get('query')
         }
-        const searchTerms = ["react", "express", "databasertyhrt"];
+
+        const searchTerms = queryParam.query?.split(' ');
 
     // Construct the query
     const query = {
       $or: [
-        { title: { $in: searchTerms.map(term => new RegExp(term, 'i')) } },
-        { note: { $in: searchTerms.map(term => new RegExp(term, 'i')) } },
-        { keywords: { $in: searchTerms.map(term => new RegExp(term, 'i')) } },
-        { dependencies: { $in: searchTerms.map(term => new RegExp(term, 'i')) } },
-        { code: { $in: searchTerms.map(term => new RegExp(term, 'i')) } }
+        { title: { $in: searchTerms?.map(term => new RegExp(term, 'i')) } },
+        { keywords: { $in: searchTerms?.map(term => new RegExp(term, 'i')) } },
       ]
     };
 
@@ -38,14 +36,8 @@ export async function GET(request:Request){
             message:'Successfully get search result',
             data: results
             },
-        {status:500})
-
-     
-
-     
-
-      
-        
+        {status:200})
+ 
     } catch (error) {
         console.log("Error finding codes", error)
         return Response.json({

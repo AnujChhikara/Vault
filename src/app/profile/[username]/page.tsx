@@ -104,7 +104,7 @@ export default function Profile() {
                               id={code._id}
                               keywords = {code.keywords}
                               owner={userData.username}
-                              upvote={code.upvotes}
+                              
                               />
                                
                                 

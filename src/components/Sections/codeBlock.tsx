@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 
 
-export default function CodeBlock({title,id, owner, keywords}:{title:string,id:string, owner:string, upvote:string, keywords:string}) {
+export default function CodeBlock({title,id, owner, keywords}:{title:string,id:string, owner:string, keywords:string}) {
 
     return (
       <div className='flex flex-wrap w-[400px]'>

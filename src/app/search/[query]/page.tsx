@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import axios, { AxiosError } from 'axios';
 import { ApiResponse } from '@/types/ApiResponse';
 import SkeletonComponent from '@/components/Sections/skeleton';
+import CodeBlock from '@/components/Sections/codeBlock';
 
 export default function SearchResult() {
   const { query } = useParams(); 
@@ -16,7 +17,6 @@ export default function SearchResult() {
     const gettingSearchResult = async () => {
       try {
         const response = await axios.get(`/api/search?query=${query}`);
-        console.log(response);
         const data = response.data.data;
         if (data) {
           setResultData(data);
@@ -33,9 +33,9 @@ export default function SearchResult() {
       gettingSearchResult();
     }
   }, [query]);
-
+console.log(resultData)
   return (
-    <div className='bg-black w-full h-screen text-white flex justify-center items-start px-20 py-20'>
+    <div className='bg-black w-full h-full min-h-screen text-white flex justify-center items-start px-20 py-20'>
       {loading ? (
         <div className='grid grid-cols-2 gap-12'>
           <SkeletonComponent />
@@ -46,7 +46,16 @@ export default function SearchResult() {
           <SkeletonComponent />
         </div>
       ) : (
-        <div>{query}</div>
+        <div>
+        {resultData && resultData.map((item) => (
+          <CodeBlock key={item._id} 
+          title={item.title}
+          id={item._id}
+          owner={item.owner}
+          keywords={item.keywords}
+
+          />
+        ) )}</div>
       )}
     </div>
   );
