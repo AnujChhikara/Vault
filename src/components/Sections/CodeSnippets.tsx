@@ -1,6 +1,7 @@
 import { cn } from "@/utils/cn";
 import React from "react";
 import { BentoGrid, BentoGridItem } from "../ui/bento-grid";
+import { Code2Icon } from "lucide-react";
 
 
 const Skeleton = () => (
@@ -8,49 +9,59 @@ const Skeleton = () => (
 );
 const items = [
   {
-    title: "The Dawn of Innovation",
-    description: "Explore the birth of groundbreaking ideas and inventions.",
-    header: <Skeleton />,
+    title: "Integrating MongoDB with Next.js",
+    description: "Learn how to set up and use MongoDB in a Next.js application.",
+    header: <Code2Icon/>,
+    id:''
+  },
+  {
+    title: "Building RESTful APIs with Express and MongoDB",
+    description: "Create robust RESTful APIs using Express.js and MongoDB.",
+    header: <Code2Icon/>,
+  },
+  {
+    title: "Setting Up a React Frontend for a MERN Stack App",
+    description: "Step-by-step guide to integrating React with a MERN stack backend.",
+    header: <Code2Icon/>,
+  },
+  {
+    title: "Implementing User Authentication in a MERN App",
+    description: "Secure your MERN stack application with user authentication.",
+    header: <Code2Icon/>,
+  },
+  {
+    title: "Using Mongoose for Data Modeling in Node.js",
+    description: "Understand how to define and use schemas with Mongoose.",
+    header: <Code2Icon/>,
+  },
+  {
+    title: "Deploying a MERN Stack Application",
+    description: "Best practices for deploying a MERN stack application to production.",
+    header: <Code2Icon/>,
+  },
+  {
+    title: "Building a REST API with Go and Gin",
+    description: "Create a simple REST API using the Gin framework in Go.",
+    header: <Code2Icon/>,
+  },
 
+  {
+    title: "Building Web Applications with Go and React",
+    description: "Integrate a Go backend with a React frontend for a full-stack app.",
+    header: <Code2Icon/>,
   },
   {
-    title: "The Digital Revolution",
-    description: "Dive into the transformative power of technology.",
-    header: <Skeleton />,
-
+    title: "Creating REST APIs with Flask and Python",
+    description: "Develop a RESTful API using Flask in Python.",
+    header: <Code2Icon/>,
   },
   {
-    title: "The Art of Design",
-    description: "Discover the beauty of thoughtful and functional design.",
-    header: <Skeleton />,
-
-  },
-  {
-    title: "The Power of Communication",
-    description:
-      "Understand the impact of effective communication in our lives.",
-    header: <Skeleton />,
-
-  },
-  {
-    title: "The Pursuit of Knowledge",
-    description: "Join the quest for understanding and enlightenment.",
-    header: <Skeleton />,
-
-  },
-  {
-    title: "The Joy of Creation",
-    description: "Experience the thrill of bringing ideas to life.",
-    header: <Skeleton />,
- 
-  },
-  {
-    title: "The Spirit of Adventure",
-    description: "Embark on exciting journeys and thrilling discoveries.",
-    header: <Skeleton />,
-   
+    title: "Deploying a Python Flask Application",
+    description: "Learn the steps to deploy a Flask app to a production environment.",
+    header: <Code2Icon/>,
   },
 ];
+
 
 export default function CodeSnippets() {
   return (
@@ -63,7 +74,7 @@ export default function CodeSnippets() {
           title={item.title}
           description={item.description}
           header={item.header}
-          className={i === 3 || i === 6 ? "md:col-span-2" : ""}
+          className={i === 3 || i === 6 ? "md:col-span-2 h-48" : "h-48"}
         />
       ))}
     </BentoGrid>

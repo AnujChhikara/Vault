@@ -195,7 +195,7 @@ export default function Code() {
                 </div>
             ) : (
                 <div>
-                    {codeData ? (
+                    {codeData && user ? (
                         <div className='flex flex-col space-y-4 w-5/6 items-start px-20 pt-12 pb-20'>
                             <div className='flex justify-between space-x-4 items-start pb-6'>
                                 <h4 className='text-5xl font-semibold'>{codeData.title}</h4>
@@ -257,7 +257,7 @@ export default function Code() {
                                 <p className='text-zinc-200 text-sm'>{codeData.note}</p>
                             </div>
                         {
-                            user._id === codeData.owner && 
+                            user?._id === codeData.owner && 
                             <div>
                                 <AlertDialog>
                                     <AlertDialogTrigger> <div className='bg-red-600 hover:bg-red-600 duration-300 bg-opacity-60 px-4 py-2 rounded-lg'>Delete</div></AlertDialogTrigger>

@@ -3,25 +3,23 @@ import Link from 'next/link'
 import React from 'react'
 
 
-export default function CodeBlock({title,id, owner, keywords}:{title:string,id:string, owner:string, keywords:string}) {
+export default function CodeBlock({title,id, owner,upvotes, keywords}:{title:string,id:string, owner:string,upvotes:number, keywords:string}) {
 
     return (
-      <div className='flex flex-wrap w-[400px]'>
-
-     
-    <Link href={`/code/${id}`} className='border-double border-cyan-900 border-4  hover:bg-black/5 duration-300 w-[600px] h-40 flex flex-col rounded-xl justify-around items-start p-4'>
-    <div className='flex justify-between w-full'>
-     <h3 className='text-xl flex font-bold'>{title}</h3>
-        </div>
-        <div className='flex space-x-2'>{
-         keywords.split(',').map((keyword:any, index:any) => (
-         <span key={index} className='bg-zinc-900 hover:bg-zinc-600 font-semibold duration-500 px-2 py-1 rounded-lg'>
-        {keyword}
-        </span>
-        ))                                    
-         }</div>
-     
-    </Link>
-     </div>
+    
+    <div  className="bg-[#0c0b0b]  shadow-pink-800 shadow-md p-6 w-[600px] h-[160px] rounded-lg mb-6">
+              <h2 className="text-xl font-bold">{title}</h2>
+      
+              <div className="flex flex-wrap mb-2 mt-4">
+                {keywords.split(',').map((keyword: string, index: number) => (
+                  <span key={index} className="bg-gray-700 text-gray-300 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">
+                    {keyword}
+                  </span>
+                ))}
+              </div>
+              <Link href={`/code/${id}`} className="text-pink-500 hover:underline">View Code</Link>
+              <span className="ml-4 text-gray-400">Upvotes: {upvotes}</span>
+            </div>
+  
   )
 }

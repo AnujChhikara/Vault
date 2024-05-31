@@ -49,7 +49,7 @@ const SearchBar: React.FC = () => {
         placeholder={place}
         
       />
-      <Button className='w-40 py-4 text-xl rounded-full font-semibold  bg-gradient-to-r from-pink-600 via-pink-700 to-pink-900' type="submit">
+      <Button className='w-36 py-4 text-xl rounded-full font-semibold hover:opacity-90 duration-300  bg-gradient-to-r from-pink-600 via-pink-700 to-pink-900' type="submit">
                Search
              </Button>
     </form>

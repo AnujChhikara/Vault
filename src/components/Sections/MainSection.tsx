@@ -30,19 +30,31 @@ export default function MainSection() {
       text: "on",
     },
     {
-      text: "Logic",
+      text: "Logic,",
       className: "text-blue-500 ",
     },
     
     {
-      text: "Not",
+      text: "Let",
     },
     {
-      text: "Memorizing",
-      className: "text-blue-500 underline",
+      text: "us",
+    },
+   
+    {
+      text: "Memorize",
     },
     {
-      text: "Code.",
+      text: "Code",
+      
+    },
+     {
+      text: "for",
+      
+    },
+     {
+      text: "you.",
+      className: "text-blue-500 underline"
       
     },
   ];
@@ -58,7 +70,7 @@ export default function MainSection() {
 
       
       <Navbar/>
-      <div className='flex flex-col items-center pt-20 space-y-16'>
+      <div className='flex flex-col items-center pt-20 space-y-20'>
         {/* logo */} 
         <div className="flex justify-center items-center">
         <Image width={100} height={100} src="https://res.cloudinary.com/dlahahicg/image/upload/v1715159647/1_oj2rgu.png" alt="logo"/>

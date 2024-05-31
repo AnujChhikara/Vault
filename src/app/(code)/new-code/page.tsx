@@ -76,7 +76,7 @@ export default function NewCode() {
   return (
     <div className='bg-black/[0.96] w-screen flex flex-col py-8 justify-center items-center min-h-screen text-white'>
         <h4 className='text-[35px] font-bold pb-4 h-5/6 underline text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-pink-500 to-pink-700'>Add New Code</h4>
-        <div className='border p-8 w-3/5  rounded-md border-zinc-700 shadow-inner shadow-zinc-600'>
+        <div className='border p-8 w-3/5  rounded-md border-zinc-600 border-dashed'>
          <Form {...form} >
           <form className="flex justify-around space-x-8" onSubmit={form.handleSubmit(onSubmit)}>
             <div className='flex flex-col justify-start space-y-12  w-1/2'>
@@ -85,8 +85,8 @@ export default function NewCode() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
-                 <Input required placeholder='for ex - how to use redux in nextJs' className='bg-transparent border-zinc-800' {...field} />
+                  <FormLabel className='text-lg'>Title</FormLabel>
+                 <Input required placeholder='for ex - how to use redux in nextJs' className='bg-transparent border-dashed  border-zinc-800' {...field} />
                   <FormMessage />
                 </FormItem>
               )}
@@ -96,8 +96,8 @@ export default function NewCode() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Keywords</FormLabel>
-                 <Input placeholder='for ex. react, mongodb, connection, database' required className='bg-transparent border-zinc-800' {...field} />
+                  <FormLabel className='text-lg'>Keywords</FormLabel>
+                 <Input placeholder='for ex. react, mongodb, connection, database' required className='bg-transparent border-dashed border-zinc-800' {...field} />
                                     
                   <FormMessage />
                 </FormItem>
@@ -110,8 +110,8 @@ export default function NewCode() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Dependencies</FormLabel>
-                  <Textarea placeholder='npm install @reduxjs/toolkit' rows={3} className='bg-transparent border-zinc-800' {...field} />
+                  <FormLabel className='text-lg'>Dependencies</FormLabel>
+                  <Textarea placeholder='npm install @reduxjs/toolkit' rows={3} className='bg-transparent border-dashed border-zinc-800' {...field} />
                   <FormMessage />
                 </FormItem>
               )}
@@ -122,8 +122,8 @@ export default function NewCode() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Note</FormLabel>
-                  <Textarea rows={5} className='bg-transparent border-zinc-800' {...field} />
+                  <FormLabel className='text-lg'>Note</FormLabel>
+                  <Textarea rows={5} className='bg-transparent border-zinc-800 border-dashed' {...field} />
                   <FormMessage />
                 </FormItem>
               )}
@@ -136,9 +136,9 @@ export default function NewCode() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Code</FormLabel>
+                  <FormLabel className='text-lg'>Code</FormLabel>
                     
-                  <Textarea {...field} spellCheck={false} rows={30} required className=' bg-transparent border-zinc-800' {...field} />
+                  <Textarea {...field} spellCheck={false} rows={30} required className=' bg-transparent border-zinc-600 border-dashed' {...field} />
                   <FormMessage />
                 </FormItem>
               )}

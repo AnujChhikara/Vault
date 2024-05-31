@@ -63,9 +63,9 @@ const TrendingPage = () => {
       <h1 className="text-4xl font-bold mb-8">Trending Codes</h1>
 
       <div className="flex mb-4">
-        <button onClick={() => handleFilterChange('allTime')} className={`mr-2 px-4 py-2 rounded ${filterType === 'allTime' ? 'bg-purple-500' : 'bg-gray-700'}`}>All Time</button>
-        <button onClick={() => handleFilterChange('topOfMonth')} className={`mr-2 px-4 py-2 rounded ${filterType === 'topOfMonth' ? 'bg-purple-500' : 'bg-gray-700'}`}>Top of Month</button>
-        <button onClick={() => handleFilterChange('topOfWeek')} className={`px-4 py-2 rounded ${filterType === 'topOfWeek' ? 'bg-purple-500' : 'bg-gray-700'}`}>Top of Week</button>
+        <button onClick={() => handleFilterChange('allTime')} className={`mr-2 px-4 py-2 rounded ${filterType === 'allTime' ? 'bg-pink-700' : 'bg-gray-700'}`}>All Time</button>
+        <button onClick={() => handleFilterChange('topOfMonth')} className={`mr-2 px-4 py-2 rounded ${filterType === 'topOfMonth' ? 'bg-pink-700' : 'bg-gray-700'}`}>Top of Month</button>
+        <button onClick={() => handleFilterChange('topOfWeek')} className={`px-4 py-2 rounded ${filterType === 'topOfWeek' ? 'bg-pink-700' : 'bg-gray-700'}`}>Top of Week</button>
       </div>
 
       {loading ? (
@@ -85,8 +85,8 @@ const TrendingPage = () => {
                   </span>
                 ))}
               </div>
-              <Link href={`/code/${code._id}`} className="text-purple-500 hover:underline">View Code</Link>
-              <span className="ml-4 text-gray-400">Upvotes: {code.upvotes}</span>
+              <Link href={`/code/${code._id}`} className="text-pink-500 hover:underline">View Code</Link>
+              <span className="ml-4 text-gray-400">Upvotes: {code.upvotes-code.downvotes}</span>
             </div>
           ))}
         </div>
