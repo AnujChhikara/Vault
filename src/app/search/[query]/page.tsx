@@ -34,7 +34,7 @@ export default function SearchResult() {
       gettingSearchResult();
     }
   }, [query]);
-console.log(resultData)
+
   return (
     <div className='bg-black w-full h-full min-h-screen text-white flex justify-center items-start px-12 py-20'>
       {loading ? (

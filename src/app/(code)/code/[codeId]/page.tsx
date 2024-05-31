@@ -195,7 +195,7 @@ export default function Code() {
                 </div>
             ) : (
                 <div>
-                    {codeData && user ? (
+                    {codeData ? (
                         <div className='flex flex-col space-y-4 w-5/6 items-start px-20 pt-12 pb-20'>
                             <div className='flex justify-between space-x-4 items-start pb-6'>
                                 <h4 className='text-5xl font-semibold'>{codeData.title}</h4>
