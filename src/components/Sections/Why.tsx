@@ -8,11 +8,11 @@ import {
 
 export default function Why() {
   return (
-    <div className='flex justify-center items-center pt-20'>
+    <div className='flex justify-center items-center sm:pt-12 md:pt-20'>
 
   
-     <div className="w-[800px]">
-      <h2 className="text-2xl font-bold mb-4">What&lsquo;s the Need of This Website?</h2>
+     <div className="md:w-[800px] sm:w-[360px]">
+      <h2 className="md:text-2xl sm:text-xl font-bold mb-4">What&lsquo;s the Need of This Website?</h2>
        <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">
         <AccordionTrigger>Why Not GitHub?</AccordionTrigger>

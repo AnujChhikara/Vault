@@ -22,7 +22,7 @@ export default function Navbar() {
 
   return (
 
-    <div className='flex w-screen space-x-4 justify-end items-center pr-8'>
+    <div className='flex w-screen space-x-4 justify-end items-center md:pr-8 sm:pr-2'>
       {session ? (
           <div className='flex space-x-3 py-4 items-start'>
              

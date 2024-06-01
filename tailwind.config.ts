@@ -23,6 +23,14 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        sm: "300px",
+
+        md: "720px",
+
+        lg: "1040px",
+      },
+      
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

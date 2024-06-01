@@ -43,13 +43,13 @@ const SearchBar: React.FC = () => {
    <form onSubmit={handleSearch} className='flex space-x-2 items-center'>
       <Input
         type="text"
-        className={`bg-transparent rounded-full w-96  ${query == ''  ? 'input-placeholder-animation' : ''}`}
+        className={`bg-transparent rounded-full text-sm md:w-96  ${query == ''  ? 'input-placeholder-animation' : ''}`}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={place}
         
       />
-      <Button className='w-36 py-4 text-xl rounded-full font-semibold hover:opacity-90 duration-300  bg-gradient-to-r from-pink-600 via-pink-700 to-pink-900' type="submit">
+      <Button className='md:w-36 sm:w-28 py-4 md:text-xl rounded-full font-semibold hover:opacity-90 duration-300  bg-gradient-to-r from-pink-600 via-pink-700 to-pink-900' type="submit">
                Search
              </Button>
     </form>

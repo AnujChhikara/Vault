@@ -67,28 +67,28 @@ export default function MainSection() {
         fill="#E178C5"
       />
  
-
-      
       <Navbar/>
       <div className='flex flex-col items-center pt-20 space-y-20'>
         {/* logo */} 
-        <div className="flex justify-center items-center">
-        <Image width={100} height={100} src="https://res.cloudinary.com/dlahahicg/image/upload/v1715159647/1_oj2rgu.png" alt="logo"/>
+        <div className="flex justify-center space-x-4  items-center">
+        <Image width={100} height={100} className='sm:w-20 md:w-28' src="https://res.cloudinary.com/dlahahicg/image/upload/v1715159647/1_oj2rgu.png" alt="logo"/>
         <div className="flex flex-col  items-start">
-        <h1 className="text-7xl font-bold ">DevVault</h1>
-        <div className="relative w-96 ">
+        <h1 className="md:text-7xl sm:text-[40px] font-bold ">DevVault</h1>
+        <div className="relative md:w-96 sm:w-48 ">
         {/* Gradients */}
-        <div className="absolute inset-x-20  bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
-        <div className="absolute inset-x-20  bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
-        <div className="absolute inset-x-60  bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
-        <div className="absolute inset-x-60  bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
+        <div className="absolute md:inset-x-20  bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
+        <div className="absolute md:inset-x-20  bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
+        <div className="absolute md:inset-x-60 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
+        <div className="absolute md:inset-x-60  bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
       </div>
         </div>
       </div>
 
       {/* heading */}
+    
 
-        <TypewriterEffectSmooth words={words} />
+        <TypewriterEffectSmooth className='w-auto' words={words} />
+       
         {/* Search */}
         <Search/>
         {/* <PlaceholdersAndVanishInput
@@ -98,7 +98,7 @@ export default function MainSection() {
       /> */}
       {/* brief info */}
        <p
-            className="mt-4 font-semibold  text-neutral-300 max-w-3xl mx-auto"
+            className="mt-4  sm:px-2 sm:w-96 md:w-auto sm:text-sm tracking-wide  text-center font-semibold  text-neutral-300 max-w-3xl mx-auto"
             >Introducing DevVault, your ultimate destination for storing and discovering reusable code snippets. Whether you&lsquo;re in need of quick solutions or fundamental configurations, DevVault provides seamless access to a vast array of code essentials. Simplify your coding experience with our intuitive platform - where a treasure trove of solutions is just a click away.
             </p>
             </div>

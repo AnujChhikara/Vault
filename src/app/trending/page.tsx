@@ -8,16 +8,14 @@ import CodeBlock from '@/components/Sections/codeBlock';
 
 const TrendingPage = () => {
   const [codeData, setCodeData] = useState<any[]>([]);
-  const [filteredData, setFilteredData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
-  const [sortType, setSortType] = useState('upvotes');
   const [filterType, setFilterType] = useState('allTime');
 
   useEffect(() => {
     const getAllCode = async () => {
       try {
-        const response = await axios.get(`/api/get-all-code`);
+        const response = await axios.get(`/api/top-code?time=${filterType}`);
         const data = response.data.data;
         if (data) {
           setCodeData(data);
@@ -31,29 +29,8 @@ const TrendingPage = () => {
     };
 
     getAllCode();
-  }, []);
+  }, [filterType]);
 
-  useEffect(() => {
-    let data = [...codeData];
-
-    // Filter data based on filterType
-    if (filterType === 'topOfMonth') {
-      data = data.filter(code => dayjs(code.createdAt).isAfter(dayjs().subtract(1, 'month')));
-    } else if (filterType === 'topOfWeek') {
-      data = data.filter(code => dayjs(code.createdAt).isAfter(dayjs().subtract(1, 'week')));
-    }
-
-    // Sort data based on sortType
-    if (sortType === 'upvotes') {
-      data.sort((a, b) => b.upvotes - a.upvotes);
-    }
-
-    setFilteredData(data);
-  }, [codeData, sortType, filterType]);
-
-  const handleSortChange = (sortType: string) => {
-    setSortType(sortType);
-  };
 
   const handleFilterChange = (filterType: string) => {
     setFilterType(filterType);
@@ -65,8 +42,8 @@ const TrendingPage = () => {
 
       <div className="flex mb-4">
         <button onClick={() => handleFilterChange('allTime')} className={`mr-2 px-4 py-2 rounded ${filterType === 'allTime' ? 'bg-pink-700' : 'bg-gray-700'}`}>All Time</button>
-        <button onClick={() => handleFilterChange('topOfMonth')} className={`mr-2 px-4 py-2 rounded ${filterType === 'topOfMonth' ? 'bg-pink-700' : 'bg-gray-700'}`}>Top of Month</button>
-        <button onClick={() => handleFilterChange('topOfWeek')} className={`px-4 py-2 rounded ${filterType === 'topOfWeek' ? 'bg-pink-700' : 'bg-gray-700'}`}>Top of Week</button>
+        <button onClick={() => handleFilterChange('month')} className={`mr-2 px-4 py-2 rounded ${filterType === 'month' ? 'bg-pink-700' : 'bg-gray-700'}`}>Top of Month</button>
+        <button onClick={() => handleFilterChange('week')} className={`px-4 py-2 rounded ${filterType === 'week' ? 'bg-pink-700' : 'bg-gray-700'}`}>Top of Week</button>
       </div>
 
       {loading ? (
@@ -75,13 +52,17 @@ const TrendingPage = () => {
         <div>{errorMessage}</div>
       ) : (
         <div className='flex flex-col'>
-          {filteredData && filteredData.map((code: any, index: any) => (
-            <CodeBlock
-            key={code._id}
-            id={code._id}
-            title={code.title}
-            keywords={code.keywords}
+          {codeData && codeData
+          .sort((a, b) => b.totalVotes - a.totalVotes)
+          .map((code: any) => (
+            <div key={code._id}>
+              <CodeBlock
+            key={code.code._id}
+            id={code.code._id}
+            title={code.code.title}
+            keywords={code.code.keywords}
             />
+            </div>
           ))}
         </div>
       )}

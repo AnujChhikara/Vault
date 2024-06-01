@@ -67,7 +67,18 @@ export default function CodeSnippets() {
   return (
     <div className="flex flex-col justify-center items-center space-y-8">
         <p className="text-3xl font-semibold">Get Started </p>
-           <BentoGrid className="max-w-4xl mx-auto">
+           <BentoGrid className="max-w-4xl mx-auto sm:hidden md:block">
+      {items.map((item, i) => (
+        <BentoGridItem
+          key={i}
+          title={item.title}
+          description={item.description}
+          header={item.header}
+          className={i === 3 || i === 6 ? "md:col-span-2 h-48" : "h-48"}
+        />
+      ))}
+    </BentoGrid>
+        <BentoGrid className=" mx-4  md:hidden">
       {items.map((item, i) => (
         <BentoGridItem
           key={i}
