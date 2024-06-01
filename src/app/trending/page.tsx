@@ -4,6 +4,7 @@ import axios, { AxiosError } from 'axios';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
+import CodeBlock from '@/components/Sections/codeBlock';
 
 const TrendingPage = () => {
   const [codeData, setCodeData] = useState<any[]>([]);
@@ -73,21 +74,14 @@ const TrendingPage = () => {
       ) : errorMessage ? (
         <div>{errorMessage}</div>
       ) : (
-        <div>
+        <div className='flex flex-col'>
           {filteredData && filteredData.map((code: any, index: any) => (
-            <div key={index} className="bg-black shadow shadow-white p-6 rounded-lg mb-6">
-              <h2 className="text-2xl font-bold">{code.title}</h2>
-              <p className="text-gray-300 mb-4">{code.description}</p>
-              <div className="flex flex-wrap mb-4">
-                {code.keywords.split(',').map((keyword: string, index: number) => (
-                  <span key={index} className="bg-gray-700 text-gray-300 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">
-                    {keyword}
-                  </span>
-                ))}
-              </div>
-              <Link href={`/code/${code._id}`} className="text-pink-500 hover:underline">View Code</Link>
-              <span className="ml-4 text-gray-400">Upvotes: {code.upvotes-code.downvotes}</span>
-            </div>
+            <CodeBlock
+            key={code._id}
+            id={code._id}
+            title={code.title}
+            keywords={code.keywords}
+            />
           ))}
         </div>
       )}

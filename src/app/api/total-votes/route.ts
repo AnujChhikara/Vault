@@ -1,6 +1,6 @@
 import dbConnect from "@/lib/dbConnect";
 import { VotingModel } from "@/model/Vote";
-
+import mongoose from "mongoose";
 export async function GET(request: Request) {
     await dbConnect();
 
@@ -11,11 +11,12 @@ export async function GET(request: Request) {
         if (!codeId) {
             return Response.json({ success: false, message: "codeId parameter is missing" }, { status: 400 });
         }
+         const objectIdCodeId = new mongoose.Types.ObjectId(codeId); 
 
         const data = await VotingModel.aggregate([
             {
                 $match: {
-                    codeId: codeId  // Match documents with the specific codeId
+                    codeId: objectIdCodeId  // Match documents with the specific codeId
                 }
             },
             {

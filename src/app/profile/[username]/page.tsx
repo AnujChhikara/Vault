@@ -101,7 +101,7 @@ export default function Profile() {
                     <p className='text-2xl font-semibold underline'>Code Snippets:-</p>
                 
                   {
-                    userCodeData && <div className='flex flex-wrap gap-8 justify-start'>
+                    userCodeData && <div className=''>
                         {userCodeData.map((code:any) =>(
                             <div key={code._id} className='gap-4'>
                             
@@ -109,8 +109,6 @@ export default function Profile() {
                               title={code.title}
                               id={code._id}
                               keywords = {code.keywords}
-                              owner={userData.username}
-                              upvotes={code.upvotes-code.downvotes}
                               />
                                
                                 

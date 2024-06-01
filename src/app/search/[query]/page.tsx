@@ -61,10 +61,7 @@ export default function SearchResult() {
           <CodeBlock key={item._id} 
           title={item.title}
           id={item._id}
-          owner={item.owner}
           keywords={item.keywords}
-          upvotes={item.upvotes-item.downvotes}
-
           />
         ) )
             }

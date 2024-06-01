@@ -1,6 +1,8 @@
 import mongoose, {Schema} from "mongoose";
 import { User} from "./User";
-export interface CodeSnippet {
+
+export interface CodeSnippet extends Document {
+    _id: Schema.Types.ObjectId;
     title: string;
     keywords: string;
     dependencies: string;

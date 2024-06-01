@@ -143,7 +143,8 @@ export default function NewCode() {
                 </FormItem>
               )}
             />
-             <Button className='w-40 py-6 text-xl font-semibold  bg-gradient-to-r from-pink-600 via-pink-700 to-pink-900' type="submit">
+            <div className='flex justify-end'>
+             <Button className='w-40 py-6 text-xl font-semibold bg-gradient-to-r from-pink-600 via-pink-700 to-pink-900' type="submit">
                {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -154,6 +155,7 @@ export default function NewCode() {
               )}
 
              </Button>
+             </div>
                 </div>
            
              

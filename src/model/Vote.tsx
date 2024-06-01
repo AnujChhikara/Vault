@@ -1,17 +1,25 @@
 import mongoose, {Schema, Document} from "mongoose";
+import { User } from "./User";
+import { CodeSnippet } from "./Code";
 
 export interface Vote extends Document{
-    userId:string;
-    codeId:string;
+    userId:Schema.Types.ObjectId | User["_id"];
+    codeId:Schema.Types.ObjectId | CodeSnippet["_id"];
     vote: number;
 }
 
 const VoteSchema:Schema<Vote> = new Schema({
     userId:{
-        type:String,
+        
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
     codeId: {
-        type: String,
+        
+        type: Schema.Types.ObjectId,
+        ref: 'CodeSnippet',
+        required: true
     },
 
     vote:{
@@ -20,7 +28,7 @@ const VoteSchema:Schema<Vote> = new Schema({
     }
    
    
-})
+}, {timestamps:true})
 
 export const VotingModel = mongoose.models.Vote as mongoose.Model<Vote> || mongoose.model<Vote>("Vote", VoteSchema);
 
