@@ -68,7 +68,7 @@ export default function MainSection() {
       />
  
       <Navbar/>
-      <div className='flex flex-col items-center pt-20 space-y-20'>
+      <div className='flex flex-col items-center pt-20 md:space-y-20 sm:space-y-16'>
         {/* logo */} 
         <div className="flex justify-center space-x-4  items-center">
         <Image width={100} height={100} className='sm:w-20 md:w-28' src="https://res.cloudinary.com/dlahahicg/image/upload/v1715159647/1_oj2rgu.png" alt="logo"/>
@@ -86,8 +86,8 @@ export default function MainSection() {
 
       {/* heading */}
     
-
-        <TypewriterEffectSmooth className='w-auto' words={words} />
+        <h3 className='w-96 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 font-bold text-3xl flex justify-center sm:block md:hidden'>Focus on Logic, Let us Memorize Code for you</h3>
+        <TypewriterEffectSmooth className='w-auto sm:hidden md:block' words={words} />
        
         {/* Search */}
         <Search/>

@@ -29,19 +29,19 @@ export default function Navbar() {
             
             
             <HoverCard>
-              <HoverCardTrigger><Link href="/trending"><TrendingUp size={32}/></Link></HoverCardTrigger>
+              <HoverCardTrigger href='/trending'><TrendingUp size={32}/></HoverCardTrigger>
               <HoverCardContent className='bg-black border-none text-[12px] w-32 text-white '>
                 Trending Codes
               </HoverCardContent>
             </HoverCard>
               <HoverCard>
-              <HoverCardTrigger> 
-                <Link href={`/profile/${user?.username}`} className="">
+              <HoverCardTrigger href={`/profile/${user?.username}`}> 
+              
              <p 
              className=' w-10 h-10 flex justify-center shadow-white shadow-inner items-center font-semibold bg-gradient-to-r from-zinc-600 via-zinc-900 to-black  rounded-full duration-700 hover:underline'> 
              {user?.username![0].toUpperCase()  }
              </p>
-            </Link>
+          
               </HoverCardTrigger>
               <HoverCardContent className='bg-black border-none text-center text-[12px] w-32 text-white '>
                 Profile
@@ -49,7 +49,7 @@ export default function Navbar() {
             </HoverCard>           
             
             <HoverCard>
-              <HoverCardTrigger> <Link href='/new-code'><PlusCircle  size={36}/></Link></HoverCardTrigger>
+              <HoverCardTrigger href='/new-code'> <PlusCircle  size={36}/></HoverCardTrigger>
               <HoverCardContent className='bg-black border-none text-[12px] w-32 text-white '>
                 Add New Code
               </HoverCardContent>
