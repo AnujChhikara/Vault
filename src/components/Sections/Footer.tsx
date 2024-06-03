@@ -5,7 +5,7 @@ import {  Github,  Linkedin,  Twitter } from 'lucide-react'
 
 export default function Footer() {
   return (
-   <div className="flex flex-col space-y-2 py-8 sm:px-4 md:px-0 justify-center items-center">
+   <div className="flex flex-col space-y-2 pt-8 sm:px-4 md:px-0 justify-center items-center">
     <p className="text-3xl text-zinc-300 font-bold">Let&lsquo;s Collaborate</p>
     <p className="text-zinc-400 pb-10">Hey there! Want to collaborate with me? Let&lsquo;s join forces and make magic happen! 💫</p>
     <button className=" p-2 rounded-lg shadow-inner shadow-white font-semibold bg-gradient-to-r from-stone-500 via-stone-600 to-stone-900 ">
@@ -30,7 +30,9 @@ export default function Footer() {
  
 
     </div>
-    
+
+    <div className="text-sm text-zinc-400 pt-4 pb-4">All Rights Reserved &copy; 2024</div>
    </div>
+
   );
 }

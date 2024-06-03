@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 
 
 export default function CodeBlock({title,id,keywords}:{title:string,id:string, keywords:string}) {
-const [votes, setVotes] = useState<number>(0);
+  const [votes, setVotes] = useState<number>(0);
 
   useEffect(() => {
         const checkVotesCount = async () => {

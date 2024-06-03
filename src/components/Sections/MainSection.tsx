@@ -84,10 +84,12 @@ export default function MainSection() {
         </div>
       </div>
 
+      
+
       {/* heading */}
     
         <h3 className='w-96 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 font-bold text-3xl flex justify-center sm:block md:hidden'>Focus on Logic, Let us Memorize Code for you</h3>
-        <TypewriterEffectSmooth className='w-auto sm:hidden md:block' words={words} />
+        <TypewriterEffectSmooth words={words} />
        
         {/* Search */}
         <Search/>
@@ -100,7 +102,11 @@ export default function MainSection() {
        <p
             className="mt-4  sm:px-2 sm:w-96 md:w-auto sm:text-sm tracking-wide  text-center font-semibold  text-neutral-300 max-w-3xl mx-auto"
             >Introducing DevVault, your ultimate destination for storing and discovering reusable code snippets. Whether you&lsquo;re in need of quick solutions or fundamental configurations, DevVault provides seamless access to a vast array of code essentials. Simplify your coding experience with our intuitive platform - where a treasure trove of solutions is just a click away.
+            
             </p>
+            </div>
+            <div>
+        
             </div>
             
       </div>
