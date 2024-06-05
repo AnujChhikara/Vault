@@ -27,7 +27,7 @@ export default function CodeBlock({title,id,keywords}:{title:string,id:string, k
     }, [id]);
     return (
     
-    <div  className="bg-[#0c0b0b]  shadow-pink-800 shadow-md p-6 w-5/6 h-[160px] rounded-lg mb-6">
+    <div  className="bg-[#0c0b0b]  shadow-pink-800 shadow-md md:p-6 sm:p-2 md:w-5/6 sm:w-11/12 md:h-[160px] rounded-lg mb-6">
               <h2 className="text-xl font-bold">{title}</h2>
       
               <div className="flex flex-wrap mb-2 mt-4">

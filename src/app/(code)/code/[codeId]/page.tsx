@@ -196,9 +196,9 @@ export default function Code() {
             ) : (
                 <div>
                     {codeData ? (
-                        <div className='flex flex-col space-y-4 w-5/6 items-start px-20 pt-12 pb-20'>
-                            <div className='flex justify-between space-x-4 items-start pb-6'>
-                                <h4 className='text-5xl font-semibold'>{codeData.title}</h4>
+                        <div className='flex flex-col space-y-4 md:w-5/6 items-start md:px-20 sm:px-4 pt-12 pb-20'>
+                            <div className='sm:flex md:flex sm:flex-col md:flex-row justify-between md:space-x-4 sm:space-y-4 md:space-y-0 items-start pb-6'>
+                                <h4 className='md:text-5xl sm:text-3xl font-semibold'>{codeData.title}</h4>
                                 <div className='flex space-x-8'>
                                     <div className='flex items-center space-x-4 border border-zinc-700 px-4 py-1 rounded-3xl'>
                                         {votes && <p className='font-bold w-4'>{votes}</p>}
@@ -222,9 +222,9 @@ export default function Code() {
                                     )}
                                 </div>
                             </div>
-                            <div className='flex space-x-4 items-center'>
+                            <div className='sm:flex sm:flex-col md:flex md:flex-row sm:space-y-4 md:space-y-0 md:space-x-4 md:items-center sm:items-start'>
                                 <p className='text-xl font-semibold'>Keywords:</p>
-                                <div className='flex space-x-2'>
+                                <div className='flex flex-wrap space-x-2'>
                                     {codeData.keywords.split(',').map((keyword: string, index: number) => (
                                         <span key={index} className='bg-zinc-800 hover:bg-zinc-600 font-semibold duration-500 px-2 py-1 rounded-lg'>
                                             {keyword}
@@ -234,7 +234,7 @@ export default function Code() {
                             </div>
                             <div className='flex flex-col space-y-4 items-start'>
                                 <p className='text-xl font-semibold'>Dependencies</p>
-                                <div className='flex flex-col items-start space-y-2  px-2 py-4 rounded-lg w-full'>
+                                <div className='flex flex-col items-start space-y-2 rounded-lg w-full'>
                                     {codeData.dependencies.split(',').map((dep: string, index: number) => (
                                         <span key={index} className='bg-zinc-800 hover:bg-zinc-600 font-semibold duration-500 px-4 py-2 rounded-lg'>
                                             • {dep}
@@ -243,9 +243,9 @@ export default function Code() {
                                 </div>
                             </div>
                             <ScrollArea className="h-[600px] w-full rounded-xl bg-[#282c34] px-2 py-4">
-                                <div className='flex justify-end items-end'>
+                                <div className='flex md:justify-end sm:justify-around items-end'>
                                     <button onClick={() => handleCopy(codeData.code)} className='pr-4'>
-                                        <Copy />
+                                        <Copy /> 
                                     </button>
                                 </div>
                                 <SyntaxHighlighter language="javascript" style={atomOneDark}>

@@ -90,7 +90,7 @@ useEffect(() => {
   }
 
   return (
-   <div className="flex justify-center items-center min-h-screen  bg-black/[0.96]">
+   <div className="flex justify-center items-center sm:px-4 md:px-0 min-h-screen  bg-black/[0.96]">
       <div className="w-full max-w-md p-6 space-y-6 bg-transparent text-white border border-zinc-800 rounded-lg shadow-md">
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight lg:text-5xl mb-4">

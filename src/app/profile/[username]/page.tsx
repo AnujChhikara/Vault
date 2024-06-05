@@ -88,7 +88,7 @@ export default function Profile() {
                     <p>Loading...</p>
                 </div>
             ) : userData ? (
-                <div className='flex flex-col space-y-8 w-5/6  pt-12 px-20'>
+                <div className='flex flex-col  space-y-8 md:w-5/6 sm:w-11/12  pt-12 md:px-20 sm:px-2' >
                     <div className='flex space-x-4 items-center'>
                         <div className='text-4xl w-20 h-20 flex justify-center shadow-white shadow-inner items-center font-semibold bg-gradient-to-r from-zinc-600 via-zinc-900 to-black  rounded-full duration-700 '>
                         {userData.username[0].toUpperCase()}
