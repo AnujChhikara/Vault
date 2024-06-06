@@ -48,17 +48,17 @@ const SearchBar: React.FC = () => {
       <Input
         type="text"
         required
-        className={`bg-transparent rounded-full text-sm md:w-96  ${query == ''  ? 'input-placeholder-animation' : ''}`}
+        className={`bg-transparent rounded-full text-sm md:w-96 sm:w-60  ${query == ''  ? 'input-placeholder-animation' : ''}`}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={place}
         
       />
       {
-        clicked ? <Button disabled className='md:w-36 sm:w-28 py-4 md:text-xl rounded-full font-semibold hover:opacity-90 duration-300  bg-gradient-to-r from-pink-600 via-pink-700 to-pink-900' >
+        clicked ? <Button disabled className='md:w-36 sm:w-24 md:py-4  md:text-xl rounded-full font-semibold hover:opacity-90 duration-300  bg-gradient-to-r from-pink-600 via-pink-700 to-pink-900' >
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               <p className='text-[12px]'> searching..</p>
-             </Button> :<Button className='md:w-36 sm:w-28 py-4 md:text-xl rounded-full font-semibold hover:opacity-90 duration-300  bg-gradient-to-r from-pink-600 via-pink-700 to-pink-900' type="submit">
+             </Button> :<Button className='md:w-36 sm:w-24 md:py-4 md:text-xl rounded-full font-semibold hover:opacity-90 duration-300  bg-gradient-to-r from-pink-600 via-pink-700 to-pink-900' type="submit">
                Search
              </Button>
       }

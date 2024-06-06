@@ -37,10 +37,10 @@ const TrendingPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-gray-100 p-8">
+    <div className="min-h-screen bg-black text-gray-100 pt-12 px-4 ">
       <h1 className="text-4xl font-bold mb-8">Trending Codes</h1>
 
-      <div className="flex mb-4">
+      <div className="flex mb-4 sm:text-sm md:text-base font-semibold">
         <button onClick={() => handleFilterChange('allTime')} className={`mr-2 px-4 py-2 rounded ${filterType === 'allTime' ? 'bg-pink-700' : 'bg-gray-700'}`}>All Time</button>
         <button onClick={() => handleFilterChange('month')} className={`mr-2 px-4 py-2 rounded ${filterType === 'month' ? 'bg-pink-700' : 'bg-gray-700'}`}>Top of Month</button>
         <button onClick={() => handleFilterChange('week')} className={`px-4 py-2 rounded ${filterType === 'week' ? 'bg-pink-700' : 'bg-gray-700'}`}>Top of Week</button>

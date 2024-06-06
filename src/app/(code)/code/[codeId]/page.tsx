@@ -241,16 +241,21 @@ export default function Code() {
                                         </span>
                                     ))}
                                 </div>
+                                
                             </div>
-                            <ScrollArea className="h-[600px] w-full rounded-xl bg-[#282c34] px-2 py-4">
-                                <div className='flex md:justify-end sm:justify-around items-end'>
-                                    <button onClick={() => handleCopy(codeData.code)} className='pr-4'>
+                            <ScrollArea className="md:h-[600px] w-full rounded-xl bg-[#282c34] px-2 py-4">
+                                <div className='flex md:justify-end sm:justify-end items-end'>
+                                    <button onClick={() => handleCopy(codeData.code)} className='pr-4 pb-4'>
                                         <Copy /> 
                                     </button>
                                 </div>
+                                <div className='w-80'>
+
+                                
                                 <SyntaxHighlighter language="javascript" style={atomOneDark}>
                                     {codeData.code}
                                 </SyntaxHighlighter>
+                                </div>
                             </ScrollArea>
                             <div className='flex space-x-4 items-center'>
                                 <p className='text-xl'>Note:</p>

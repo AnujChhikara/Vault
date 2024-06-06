@@ -29,7 +29,7 @@ export default function Navbar() {
             
             
             <HoverCard>
-              <HoverCardTrigger href='/trending'><TrendingUp size={32}/></HoverCardTrigger>
+              <HoverCardTrigger href='/trending'  aria-label='trending'><TrendingUp size={32}/></HoverCardTrigger>
               <HoverCardContent className='bg-black border-none text-[12px] w-32 text-white '>
                 Trending Codes
               </HoverCardContent>
@@ -49,7 +49,7 @@ export default function Navbar() {
             </HoverCard>           
             
             <HoverCard>
-              <HoverCardTrigger href='/new-code'> <PlusCircle  size={36}/></HoverCardTrigger>
+              <HoverCardTrigger href='/new-code' aria-label='newcode'> <PlusCircle  size={36}/></HoverCardTrigger>
               <HoverCardContent className='bg-black border-none text-[12px] w-32 text-white '>
                 Add New Code
               </HoverCardContent>

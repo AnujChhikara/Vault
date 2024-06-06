@@ -16,7 +16,7 @@ export default function Footer() {
       <div>
        
       <Separator className="my-4 w-auto mt-10" />
-      <div className="flex h-5 items-center space-x-4 text-sm">
+      <div className="flex h-5 items-center md:space-x-4 sm:space-x-1.5 text-sm">
         <a href="https://anujchhikara.vercel.app/">Portfolio</a>
         <Separator orientation="vertical" />
         <a className='flex items-center space-x-1'   href="https://twitter.com/AnujChhikara07"><Twitter /><p>Twitter</p></a>
