@@ -11,7 +11,7 @@ export default function Why() {
     <div className='flex justify-center items-center sm:pt-12 md:pt-20'>
 
   
-     <div className="md:w-[800px] sm:w-[360px]">
+     <div className="md:w-[800px] sm:w-[330px]">
       <h2 className="md:text-2xl sm:text-xl font-bold mb-4">What&lsquo;s the Need of This Website?</h2>
        <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">

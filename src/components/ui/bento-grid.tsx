@@ -1,4 +1,6 @@
 import { cn } from "@/utils/cn";
+import { Code2Icon, ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 export const BentoGrid = ({
   className,
@@ -23,12 +25,12 @@ export const BentoGridItem = ({
   className,
   title,
   description,
-  header,
+  id
 }: {
   className?: string;
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
-  header?: React.ReactNode;
+  id?: string | React.ReactNode;
 
 }) => {
   return (
@@ -40,11 +42,14 @@ export const BentoGridItem = ({
     >
      
       <div className="">
-    <div className="h-12">{header}</div>
+    <div className=" py-4 flex items-center justify-between">
+      <div><Code2Icon/></div>
+      <Link className="hover:text-zinc-400 transition duration-500" href={`/code/${id}`}><ExternalLink /></Link>
+    </div>
         <div className="font-sans font-bold text-neutral-200 mb-2 mt-2">
           {title}
         </div>
-        <div className="font-sans font-normal  text-xs text-neutral-300">
+        <div className="font-sans font-normal  text-xs texts-neutral-300">
           {description}
         </div>
       </div>

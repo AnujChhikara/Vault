@@ -249,7 +249,7 @@ export default function Code() {
                                         <Copy /> 
                                     </button>
                                 </div>
-                                <div className='w-80'>
+                                <div className='sm:w-80 md:w-full'>
 
                                 
                                 <SyntaxHighlighter language="javascript" style={atomOneDark}>
@@ -257,7 +257,7 @@ export default function Code() {
                                 </SyntaxHighlighter>
                                 </div>
                             </ScrollArea>
-                            <div className='flex space-x-4 items-center'>
+                            <div className='flex space-x-4 items-start'>
                                 <p className='text-xl'>Note:</p>
                                 <p className='text-zinc-200 text-sm'>{codeData.note}</p>
                             </div>

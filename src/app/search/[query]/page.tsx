@@ -53,9 +53,9 @@ export default function SearchResult() {
           <h3 className='text-xl '>Unfortunately, no results were found for your search.</h3>
           <Link href='/' className='bg-zinc-900 px-6 py-2 rounded-md duration-300 hover:bg-zinc-800'>Home</Link>
         </div> : 
-        <div className='flex flex-col space-y-4 items-start justify-start w-screen px-12'>
+        <div className='flex flex-col space-y-4 items-start justify-start w-screen sm:px-4 md:px-12'>
           <h2>Search results...</h2>
-          <div className='flex flex-col space-y-4 w-full'>
+          <div className='flex flex-col space-y-4 '>
             {
                resultData.map((item) => (
           <CodeBlock key={item._id} 
