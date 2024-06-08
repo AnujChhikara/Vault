@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import {
   Form,
   FormField,
@@ -23,6 +23,8 @@ import { Loader2 } from 'lucide-react';
 export default function SignInForm() {
  const[isLoggedIn, setIsLoggedIn] = useState(false)
  const [isSubmitting, setIsSubmitting] = useState(false)
+ const session = useSession();
+ console.log(session)
 
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -63,6 +65,13 @@ export default function SignInForm() {
     }
 
   };
+  const githubSubmit = async (data:any) => {
+     setIsSubmitting(true)
+      await signIn('github', {
+      redirect: false,
+    }); 
+    
+  }
 
   if(isLoggedIn){
     redirect('/')
@@ -113,6 +122,7 @@ export default function SignInForm() {
             </Button>
           </form>
         </Form>
+        <button onClick={githubSubmit}>{session.data!=null? session.data!.user?.name : 'Sign in with Github'}</button>
         <div className="text-center mt-4">
           <p>
             Not a member yet?{' '}

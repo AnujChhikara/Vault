@@ -1,5 +1,6 @@
 import { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials"
+import CredentialsProvider from "next-auth/providers/credentials";
+import GitHubProvider from "next-auth/providers/github";
 import bcrypt from 'bcryptjs';
 import dbConnect from "@/lib/dbConnect";
 import {UserModel} from "@/model/User";
@@ -45,33 +46,52 @@ export const authOptions:NextAuthOptions = {
             }
         }),
         
+        GitHubProvider({
+            clientId: process.env.GITHUB_CLIENT_ID as string,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET as string
+        })
+        
 
     ], 
-    callbacks:{
-    
-    async jwt({ token, user}) {
-        if(user) {
-            token._id = user._id?.toString()
-            token.isVerified = user.isVerified
-            token.username = user.username
-           
-        }
-      return token
-    },
-    async session({ session, token }) {
-        if(token) {
-        session.user._id = token._id
-        session.user.isVerified = token.isVerified
-        session.user.username = token.username
+    callbacks: {
+        async jwt({ token, user, account, profile }) {
+            if (user) {
+                token._id = user._id?.toString();
+                token.isVerified = user.isVerified;
+                token.username = user.username;
+            } else if (account?.provider === 'github' && profile) {
+                await dbConnect();
+                let dbUser = await UserModel.findOne({ email: profile.email });
+
+                if (!dbUser) {
+                    dbUser = new UserModel({
+                        email: profile.email,
+                        username: profile.login, // You can transform this data as needed
+                        isVerified: true // Assuming GitHub users are verified
+                    });
+                    await dbUser.save();
+                }
+
+                token._id = dbUser._id.toString();
+                token.isVerified = dbUser.isVerified;
+                token.username = dbUser.username;
             }
-      return session
-    }
+            return token;
+        },
+        async session({ session, token }) {
+            if (token) {
+                session.user._id = token._id;
+                session.user.isVerified = token.isVerified;
+                session.user.username = token.username;
+            }
+            return session;
+        }
     },
-    pages:{
-        signIn:'/sign-in'
+    pages: {
+        signIn: '/sign-in'
     },
-    session:{
-        strategy:'jwt'
+    session: {
+        strategy: 'jwt'
     },
     secret: process.env.NEXT_AUTH_SECRET
-}
+};
