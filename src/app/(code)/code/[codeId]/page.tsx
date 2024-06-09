@@ -110,9 +110,9 @@ export default function Code() {
     // Check vote status when codeData and userData are set
     useEffect(() => {
         const checkVoteStatus = async () => {
-            if (codeData && userData) {
+            if (codeData && user) {
                 try {
-                    const response = await axios.get(`/api/voteStatus?codeId=${codeData._id}&userId=${userData._id}`);
+                    const response = await axios.get(`/api/voteStatus?codeId=${codeData._id}&userId=${user._id}`);
                     const data = response.data.data;
                     setVoteStatus(data.vote);
                 } catch (error) {
@@ -122,10 +122,10 @@ export default function Code() {
             }
         };
 
-        if (codeData && userData) {
+        if (codeData && user) {
             checkVoteStatus();
         }
-    }, [codeData, userData]);
+    }, [codeData, user]);
 
     // Check votes count when codeData or voteStatus changes
     useEffect(() => {
@@ -158,7 +158,7 @@ export default function Code() {
     const handleUpvote = async () => {
         if (codeData && userData) {
             try {
-                const response = await axios.get(`/api/upvote?codeId=${codeData._id}&userId=${userData._id}`);
+                const response = await axios.get(`/api/upvote?codeId=${codeData._id}&userId=${user._id}`);
                 const data = response.data.data;
                 setVoteStatus(1); // Update vote status locally
                 toast({
@@ -174,7 +174,7 @@ export default function Code() {
     const handleDownvote = async () => {
         if (codeData && userData) {
             try {
-                const response = await axios.get(`/api/downvote?codeId=${codeData._id}&userId=${userData._id}`);
+                const response = await axios.get(`/api/downvote?codeId=${codeData._id}&userId=${user._id}`);
                 const data = response.data.data;
                 setVoteStatus(-1); // Update vote status locally
                 toast({

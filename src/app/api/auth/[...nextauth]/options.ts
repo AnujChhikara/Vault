@@ -3,78 +3,83 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import bcrypt from 'bcryptjs';
 import dbConnect from "@/lib/dbConnect";
-import {UserModel} from "@/model/User";
+import { UserModel } from "@/model/User";
 
-
-export const authOptions:NextAuthOptions = {
-    providers:[
+export const authOptions: NextAuthOptions = {
+    providers: [
         CredentialsProvider({
-            id:'credentials',
+            id: 'credentials',
             name: 'Credentials',
-           credentials: {
-            email: { label: "Email", type: "text"},
-            password: { label: "Password", type: "password" }
+            credentials: {
+                email: { label: "Email", type: "text" },
+                password: { label: "Password", type: "password" }
             },
-            async authorize(credentials:any):Promise<any>{
-                await dbConnect()
+            async authorize(credentials: any): Promise<any> {
+                await dbConnect();
                 try {
-
-                const user = await UserModel.findOne({
-                        $or:[
-                            {email:credentials.identifier},
-                            {username:credentials.identifier}
+                    const user = await UserModel.findOne({
+                        $or: [
+                            { email: credentials.identifier },
+                            { username: credentials.identifier }
                         ]
-                    })
+                    });
 
-                    if(!user){
-                        throw new Error('No user found with this email')
-                    }
-                    
-                    if(!user.isVerified){
-                        throw new Error('please verify your account before login')
+                    if (!user) {
+                        throw new Error('No user found with this email');
                     }
 
-                  const isPasswordCorrect =  await bcrypt.compare(credentials.password, user.password)
-                  if(isPasswordCorrect){
-                    return user
-                  }else{
-                    throw new Error('Incorrect password')
-                  }
-                } catch (error:any) {
-                    throw new Error
+                    if (!user.isVerified) {
+                        throw new Error('Please verify your account before login');
+                    }
+                      if (!user.password) {
+                        throw new Error('User does not have a password set');
+                    }
+
+                     const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
+                    if (isPasswordCorrect) {
+                        return user;
+                    } else {
+                        throw new Error('Incorrect password');
+                    }
+                } catch (error: any) {
+                    throw new Error(error.message);
                 }
             }
         }),
-        
         GitHubProvider({
             clientId: process.env.GITHUB_CLIENT_ID as string,
             clientSecret: process.env.GITHUB_CLIENT_SECRET as string
         })
-        
-
-    ], 
+    ],
     callbacks: {
-        async jwt({ token, user, account, profile }) {
+        async jwt({ token, user}) {
+           
             if (user) {
                 token._id = user._id?.toString();
                 token.isVerified = user.isVerified;
                 token.username = user.username;
-            } else if (account?.provider === 'github' && profile) {
+            } else if (token.name) {
                 await dbConnect();
-                let dbUser = await UserModel.findOne({ email: profile.email });
+                let dbUser = await UserModel.findOne({ email: token.email });
+                 if(dbUser){
+                    token._id = dbUser._id.toString();
+                token.isVerified = dbUser.isVerified;
+                token.username = dbUser.username;
+                 }
 
                 if (!dbUser) {
                     dbUser = new UserModel({
-                        email: profile.email,
-                        username: profile.login, // You can transform this data as needed
+                        email: token.email,
+                        username: token.name, // Using profile.name instead of profile.login
                         isVerified: true // Assuming GitHub users are verified
                     });
                     await dbUser.save();
-                }
-
-                token._id = dbUser._id.toString();
+                    if(dbUser){
+                    token._id = dbUser._id.toString();
                 token.isVerified = dbUser.isVerified;
                 token.username = dbUser.username;
+                 }
+                }
             }
             return token;
         },
