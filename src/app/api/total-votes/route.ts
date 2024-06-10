@@ -35,7 +35,7 @@ export async function GET(request: Request) {
         ]);
 
         if (data.length === 0) {
-            return Response.json({ success: false, message: "No votes found for the specified codeId" }, { status: 404 });
+            return Response.json({ success: false, message: "No votes found for the specified codeId" }, { status: 200 });
         }
 
         return Response.json({ success: true, data }, { status: 200 });

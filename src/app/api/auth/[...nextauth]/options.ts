@@ -1,9 +1,20 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 import bcrypt from 'bcryptjs';
 import dbConnect from "@/lib/dbConnect";
 import { UserModel } from "@/model/User";
+
+const generateUniqueUsername = async (preferredUsername:any) => {
+  let username = preferredUsername;
+  let counter = 1;
+  while (await UserModel.findOne({ username })) {
+    username = `${preferredUsername}${counter}`;
+    counter += 1;
+  }
+  return username;
+};
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -31,11 +42,12 @@ export const authOptions: NextAuthOptions = {
                     if (!user.isVerified) {
                         throw new Error('Please verify your account before login');
                     }
-                      if (!user.password) {
+
+                    if (!user.password) {
                         throw new Error('User does not have a password set');
                     }
 
-                     const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
+                    const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
                     if (isPasswordCorrect) {
                         return user;
                     } else {
@@ -49,11 +61,14 @@ export const authOptions: NextAuthOptions = {
         GitHubProvider({
             clientId: process.env.GITHUB_CLIENT_ID as string,
             clientSecret: process.env.GITHUB_CLIENT_SECRET as string
+        }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
         })
     ],
     callbacks: {
-        async jwt({ token, user}) {
-           
+        async jwt({ token, user }) {
             if (user) {
                 token._id = user._id?.toString();
                 token.isVerified = user.isVerified;
@@ -61,25 +76,20 @@ export const authOptions: NextAuthOptions = {
             } else if (token.name) {
                 await dbConnect();
                 let dbUser = await UserModel.findOne({ email: token.email });
-                 if(dbUser){
-                    token._id = dbUser._id.toString();
-                token.isVerified = dbUser.isVerified;
-                token.username = dbUser.username;
-                 }
 
                 if (!dbUser) {
+                    const uniqueUsername = await generateUniqueUsername(token.name);
                     dbUser = new UserModel({
                         email: token.email,
-                        username: token.name, // Using profile.name instead of profile.login
-                        isVerified: true // Assuming GitHub users are verified
+                        username: uniqueUsername,
+                        isVerified: true // Assuming OAuth users are verified
                     });
                     await dbUser.save();
-                    if(dbUser){
-                    token._id = dbUser._id.toString();
+                }
+
+                token._id = dbUser._id.toString();
                 token.isVerified = dbUser.isVerified;
                 token.username = dbUser.username;
-                 }
-                }
             }
             return token;
         },

@@ -12,7 +12,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { signInSchema } from '@/schemas/signInSchema';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Github, Loader2 } from 'lucide-react';
+import { Github, Loader2, Mail } from 'lucide-react';
 
 export default function SignInForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,7 +36,7 @@ export default function SignInForm() {
     });
 
     setIsSubmitting(false);
-
+    console.log(result);
     if (!result?.ok) {
       toast({
         title: 'Login Failed',
@@ -55,6 +55,10 @@ export default function SignInForm() {
   const githubSubmit = async () => {
     await signIn('github', { callbackUrl: '/' });
   };
+   const googleSubmit = async () => {
+    await signIn('google', { callbackUrl: '/' });
+  };
+
 
   return (
     <div className="flex justify-center items-center min-h-screen sm:px-6 md:px-0 bg-black/[0.96]">
@@ -104,6 +108,9 @@ export default function SignInForm() {
         <p className='text-center'>or</p>
         <Button onClick={githubSubmit} className="flex space-x-2 w-full items-center">
           <p>Sign in with GitHub</p> <Github />
+        </Button>
+        <Button onClick={googleSubmit} className="flex bg-white text-black hover:bg-slate-300 space-x-2 w-full items-center">
+          <p>Sign in with Google</p> <Mail /> 
         </Button>
         <div className="text-center mt-4">
           <p>

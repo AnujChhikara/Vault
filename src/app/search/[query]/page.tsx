@@ -7,6 +7,7 @@ import { ApiResponse } from '@/types/ApiResponse';
 import SkeletonComponent from '@/components/Sections/skeleton';
 import CodeBlock from '@/components/Sections/codeBlock';
 import Link from 'next/link';
+import { set } from 'mongoose';
 
 export default function SearchResult() {
   const { query } = useParams(); 
@@ -22,11 +23,12 @@ export default function SearchResult() {
         if (data) {
           setResultData(data);
           setLoading(false);
+        
         }
       } catch (error) {
         const axiosError = error as AxiosError<ApiResponse>;
         setErrorMessage(axiosError.response?.data.message || 'Error fetching user profile');
-        setLoading(false);
+       setLoading(false);
       }
     };
 
@@ -38,13 +40,12 @@ export default function SearchResult() {
   return (
     <div className='bg-black w-full h-full min-h-screen text-white flex justify-center items-start px-12 py-20'>
       {loading ? (
-        <div className='grid grid-cols-2 gap-12'>
+        <div className='flex flex-col items-start w-screen space-y-8'>
           <SkeletonComponent />
           <SkeletonComponent />
           <SkeletonComponent />
           <SkeletonComponent />
-          <SkeletonComponent />
-          <SkeletonComponent />
+          
         </div>
       ) : (
         <div className=''>
