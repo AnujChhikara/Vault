@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Head from "next/head";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster"
 import AuthProvider from '@/context/AuthProviders';
@@ -19,13 +20,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <meta
+          name="google-site-verification"
+          content="BAb_1Urwy9jq-4jHhPuUKGx9QlWPUhoEDGH9GQ8kQUQ"
+        />
+      </Head>
       <AuthProvider>
-      <body className={inter.className}>
-        
-        {children}<Toaster/>
-        <Analytics/>
+        <body className={inter.className}>
+          {children}
+          <Toaster />
+          <Analytics />
         </body>
-        </AuthProvider>
+      </AuthProvider>
     </html>
   );
 }
