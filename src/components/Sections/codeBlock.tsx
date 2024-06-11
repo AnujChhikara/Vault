@@ -13,8 +13,9 @@ export default function CodeBlock({title,id,keywords}:{title:string,id:string, k
             if (id) {
                 try {
                     const response = await axios.get(`/api/total-votes?codeId=${id}`);
-                    const data = response.data.data;
-                    setVotes(data[0].totalVotes);
+                  const data = response.data.data;
+                 
+                    setVotes(data[0]?.totalVotes);
                 } catch (error) {
                     const axiosError = error as AxiosError<ApiResponse>;
                     console.log(axiosError)

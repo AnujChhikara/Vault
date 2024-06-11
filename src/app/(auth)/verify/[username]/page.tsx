@@ -46,8 +46,11 @@ export default function VerifyAccount() {
   }
   }
   return (
-     <div className="flex justify-center items-center min-h-screen bg-black/[0.96]">
-      <div className="w-full max-w-md p-8 space-y-8 backdrop-blur-sm bg-black/90 text-white rounded-lg shadow-md">
+     <div className="bg-black/[0.96] min-h-screen text-white">
+      <div className=' h-screen w-screen flex items-center justify-center'>
+
+      
+      <div className="sm:w-[330px] md:w-auto md:py-8 md:px-8 sm:py-8 sm:px-4 space-y-8  border text-white rounded-lg shadow-md">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
             Verify Your Account
@@ -70,6 +73,7 @@ export default function VerifyAccount() {
             <Button type="submit">Verify</Button>
           </form>
         </Form>
+      </div>
       </div>
     </div>
   )
