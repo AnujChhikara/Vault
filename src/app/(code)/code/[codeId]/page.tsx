@@ -220,11 +220,11 @@ export default function Code() {
                   )}
                 </div>
               </div>
-              <div className='sm:flex sm:flex-col md:flex md:flex-row sm:space-y-4 md:space-y-0 md:space-x-4 md:items-center sm:items-start'>
+              <div className='flex flex-col space-y-4 items-start'>
                 <p className='text-xl font-semibold'>Keywords:</p>
                 <div className='flex flex-wrap gap-4 items-center'>
                   {codeData.keywords.split(',').map((keyword: string, index: number) => (
-                    <span key={index} className='bg-zinc-800 hover:bg-zinc-600 font-semibold duration-500 px-2 py-1 rounded-lg'>
+                    <span key={index} className='bg-zinc-800 hover:bg-zinc-600  duration-500 px-2 py-1 rounded-lg'>
                       {keyword}
                     </span>
                   ))}
@@ -234,7 +234,7 @@ export default function Code() {
                 <p className='text-xl font-semibold'>Dependencies</p>
                 <div className='flex flex-col items-start space-y-2 rounded-lg w-full'>
                   {codeData.dependencies.split(',').map((dep: string, index: number) => (
-                    <span key={index} className='bg-zinc-800 hover:bg-zinc-600 font-semibold duration-500 px-4 py-2 rounded-lg'>
+                    <span key={index} className='bg-zinc-800 hover:bg-zinc-600  duration-500 px-2 py-1 rounded-lg'>
                       • {dep}
                     </span>
                   ))}
@@ -252,7 +252,7 @@ export default function Code() {
                   </SyntaxHighlighter>
                 </div>
               </ScrollArea>
-              <div className='flex space-x-4 items-start'>
+              <div className='flex space-y-2 flex-col items-start'>
                 <p className='text-xl'>Note:</p>
                 <p className='text-zinc-200 text-sm'>{codeData.note}</p>
               </div>

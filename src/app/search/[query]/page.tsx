@@ -38,7 +38,7 @@ export default function SearchResult() {
   }, [query]);
 
   return (
-    <div className='bg-black w-full h-full min-h-screen text-white flex justify-center items-start px-12 py-20'>
+    <div className='bg-black w-full h-full min-h-screen text-white flex justify-center items-start px-12 md:py-20 sm:py-6'>
       {loading ? (
         <div className='flex flex-col items-start w-screen space-y-8'>
           <SkeletonComponent />
