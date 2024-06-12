@@ -61,66 +61,67 @@ export default function SignInForm() {
 
 
   return (
-    <div className="flex justify-center items-center min-h-screen sm:px-6 md:px-0 bg-black/[0.96]">
-      <div className="w-full max-w-md p-6 space-y-4 bg-transparent text-white border border-zinc-700 rounded-lg shadow-md">
-        <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-            Welcome Back to DevVault
-          </h1>
-          <p className="mb-4">Sign in to store your reusable codes</p>
-        </div>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              name="identifier"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email/Username</FormLabel>
-                  <Input className="bg-transparent border-zinc-800" {...field} />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="password"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <Input type="password" className="bg-transparent border-zinc-800" {...field} />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Please wait
-                </>
-              ) : (
-                'Sign In'
-              )}
-            </Button>
-          </form>
-        </Form>
-        <p className='text-center'>or</p>
-        <Button onClick={githubSubmit} className="flex space-x-2 w-full items-center">
-          <p>Sign in with GitHub</p> <Github />
-        </Button>
-        <Button onClick={googleSubmit} className="flex bg-white text-black hover:bg-slate-300 space-x-2 w-full items-center">
-          <p>Sign in with Google</p> <Mail /> 
-        </Button>
-        <div className="text-center mt-4">
-          <p>
-            Not a member yet?{' '}
-            <Link href="/sign-up" className="text-pink-600 hover:text-pink-800">
-              Sign up
-            </Link>
-          </p>
-        </div>
-      </div>
+    <div className="flex justify-center items-center sm:px-4 md:px-0 min-h-screen bg-black/[0.96]">
+  <div className="w-full max-w-md md:p-6 sm:p-3  space-y-4 bg-transparent text-white border border-zinc-600 rounded-lg shadow-md">
+    <div className="text-center">
+      <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
+        Welcome Back to DevVault
+      </h1>
+      <p className="mb-4">Sign in to store your reusable code snippets</p>
     </div>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <FormField
+          name="identifier"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email or Username</FormLabel>
+              <Input className="bg-transparent border-zinc-800" {...field} />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="password"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <Input type="password" className="bg-transparent border-zinc-800" {...field} />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Please wait
+            </>
+          ) : (
+            'Sign In'
+          )}
+        </Button>
+      </form>
+    </Form>
+    <p className="text-center">or</p>
+    <Button onClick={githubSubmit} className="flex space-x-2 w-full items-center">
+      <p>Sign in with GitHub</p> <Github />
+    </Button>
+    <Button onClick={googleSubmit} className="flex bg-white text-black hover:bg-slate-300 space-x-2 w-full items-center">
+      <p>Sign in with Google</p> <Mail />
+    </Button>
+    <div className="text-center mt-4">
+      <p>
+        Not a member yet?{' '}
+        <Link href="/sign-up" className="text-pink-600 hover:text-pink-800">
+          Sign up
+        </Link>
+      </p>
+    </div>
+  </div>
+</div>
+
   );
 }

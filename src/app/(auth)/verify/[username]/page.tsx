@@ -47,7 +47,7 @@ export default function VerifyAccount() {
   }
   return (
      <div className="bg-black/[0.96] min-h-screen text-white">
-      <div className=' h-screen w-screen flex items-center justify-center'>
+      <div className=' h-screen w-screen flex md:items-center sm:pt-8  md:pt-0 sm:items-start justify-center'>
 
       
       <div className="sm:w-[330px] md:w-auto md:py-8 md:px-8 sm:py-8 sm:px-4 space-y-8  border text-white rounded-lg shadow-md">

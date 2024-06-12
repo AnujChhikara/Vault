@@ -90,90 +90,91 @@ useEffect(() => {
   }
 
   return (
-   <div className="flex justify-center items-center sm:px-4 md:px-0 min-h-screen  bg-black/[0.96]">
-      <div className="w-full max-w-md p-6 space-y-6 bg-transparent text-white border border-zinc-800 rounded-lg shadow-md">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold tracking-tight lg:text-5xl mb-4">
-            Welcome to DevVault!
-          </h1>
-          <p className="mb-3 font-bold tracking-tight text-zinc-400">Start Organizing Your Code - Sign Up Now!</p>
-        </div>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              name="username"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <Input className='bg-transparent border-zinc-800'
-                    {...field}
-                    onChange={(e) => {
-                      field.onChange(e);
-                      debounce(e.target.value);
-                    }}
-                  />
-                  {isCheckingUsername && <Loader2 className="animate-spin " />}
-                  {!isCheckingUsername && usernameMessage && (
-                    <p
-                      className={`text-sm ${
-                        usernameMessage === 'Username is available'
-                          ? 'text-green-500'
-                          : 'text-red-500'
-                      }`}
-                    >
-                      {usernameMessage}
-                    </p>
-                  )}
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="email"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <Input className='bg-transparent border-zinc-800' {...field} name="email" />
-                  <p className='text-muted text-zinc-400 text-sm'>We&apos;ll send you a verification code shortly.</p>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              name="password"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <Input className='bg-transparent border-zinc-800' type="password" {...field} name="password" />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className='w-full' disabled={isSubmitting}>
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Please wait
-                </>
-              ) : (
-                'Sign Up'
-              )}
-            </Button>
-          </form>
-        </Form>
-        <div className="text-center mt-4">
-          <p>
-            Already a member?{' '}
-            <Link href="/Sign-in" className="text-pink-600 hover:text-pink-800">
-              Sign in
-            </Link>
-          </p>
-        </div>
-      </div>
+<div className="flex justify-center items-center sm:px-4 md:px-0 min-h-screen bg-black/[0.96]">
+  <div className="w-full max-w-md md:p-6 sm:p-3 space-y-6 bg-transparent text-white border border-zinc-600 rounded-lg shadow-md">
+    <div className="text-center">
+      <h1 className="text-4xl font-bold tracking-tight lg:text-5xl mb-4">
+        Welcome to DevVault!
+      </h1>
+      <p className="mb-3 font-bold tracking-tight text-zinc-400">
+        Start Organizing Your Code - Sign Up Now!
+      </p>
     </div>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <FormField
+          name="username"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <Input
+                className="bg-transparent border-zinc-800"
+                {...field}
+                onChange={(e) => {
+                  field.onChange(e);
+                  debounce(e.target.value);
+                }}
+              />
+              {isCheckingUsername && <Loader2 className="animate-spin" />}
+              {!isCheckingUsername && usernameMessage && (
+                <p
+                  className={`text-sm ${
+                    usernameMessage === 'Username is available' ? 'text-green-500' : 'text-red-500'
+                  }`}
+                >
+                  {usernameMessage}
+                </p>
+              )}
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="email"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <Input className="bg-transparent border-zinc-800" {...field} name="email" />
+              <p className="text-sm text-zinc-400">We&apos;ll send you a verification code shortly.</p>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="password"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <Input className="bg-transparent border-zinc-800" type="password" {...field} name="password" />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Please wait
+            </>
+          ) : (
+            'Sign Up'
+          )}
+        </Button>
+      </form>
+    </Form>
+    <div className="text-center mt-4">
+      <p>
+        Already a member?{' '}
+        <Link href="/sign-in" className="text-pink-600 hover:text-pink-800">
+          Sign in
+        </Link>
+      </p>
+    </div>
+  </div>
+</div>
+
   )
 }
