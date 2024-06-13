@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# DevVault
 
-## Getting Started
+[![Live Preview](https://img.shields.io/badge/Live-Preview-brightgreen)](https://devvault.xyz)
 
-First, run the development server:
+DevVault is a platform where you can store your code snippets, search for other codes, find trending codes based on upvotes, and view a leaderboard of users with the most upvoted codes.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Store Code Snippets:** Save your code snippets for easy access and reference.
+- **Search for Codes:** Quickly find code snippets shared by other users.
+- **Trending Codes:** Discover popular code snippets based on upvotes.
+- **Leaderboard:** See which users have the most upvoted code snippets.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Upcoming Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Project File Storage:** Store initial code structures for projects (e.g., Node.js Express backend file structure).
 
-## Learn More
+## Installation
 
-To learn more about Next.js, take a look at the following resources:
+To get started with DevVault, follow these steps:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Clone the repository:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    ```bash
+    git clone https://github.com/AnujChhikara/Vault.git
+    cd devvault
+    ```
 
-## Deploy on Vercel
+2. **Install dependencies:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```bash
+    npm install
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+3. **Run the development server:**
+
+    ```bash
+    npm run dev
+    ```
+
+    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ## Contributing
+
+We welcome contributions to DevVault! To contribute, follow these steps:
+
+1. **Fork the repository:**
+
+    Click the "Fork" button at the top right of the repository page.
+
+2. **Clone the forked repository:**
+
+    ```bash
+    git clone https://github.com/AnujChhikara/Vault.git
+    cd devvault
+    ```
+
+3. **Create a new branch:**
+
+    ```bash
+    git checkout -b feature-name
+    ```
+
+4. **Make your changes and commit them:**
+
+    ```bash
+    git add .
+    git commit -m "Add new feature"
+    ```
+
+5. **Push to the branch:**
+
+    ```bash
+    git push origin feature-name
+    ```
+
+6. **Open a Pull Request:**
+
+    Go to the original repository on GitHub and open a pull request with your changes.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Contact
+
+If you have any questions or feedback, please contact us at [anujchhikara07@gmail.com].
+
