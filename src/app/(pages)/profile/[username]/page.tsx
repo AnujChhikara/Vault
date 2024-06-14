@@ -470,9 +470,11 @@ export default function Profile() {
                         <SquarePen size={20} />
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className='sm:w-[340px] md:w-[425px] border-zinc-700 text-white bg-black'>
+                    <DialogContent className='sm:max-w-[340px] md:max-w-[425px] border-zinc-700 text-white bg-black'>
                       <DialogHeader>
-                        <DialogTitle>Connect Your Socials</DialogTitle>
+                        <DialogTitle className=''>
+                          Connect Your Socials
+                        </DialogTitle>
                         <DialogDescription className='text-zinc-300'>
                           Connect your social accounts by entering the URLs
                           below. When you&apos;re finished, click Save.
@@ -490,7 +492,7 @@ export default function Profile() {
                           <Input
                             ref={githubRef}
                             defaultValue={
-                              userData.social.github
+                              userData.social?.github
                                 ? userData.social.github
                                 : ""
                             }
@@ -500,7 +502,7 @@ export default function Profile() {
                           <Input
                             ref={linkedinRef}
                             defaultValue={
-                              userData.social.linkedin
+                              userData.social?.linkedin
                                 ? userData.social.linkedin
                                 : ""
                             }
@@ -509,7 +511,7 @@ export default function Profile() {
                           <Input
                             ref={twitterRef}
                             defaultValue={
-                              userData.social.twitter
+                              userData.social?.twitter
                                 ? userData.social.twitter
                                 : ""
                             }
@@ -518,7 +520,7 @@ export default function Profile() {
                           <Input
                             ref={websiteRef}
                             defaultValue={
-                              userData.social.website
+                              userData.social?.website
                                 ? userData.social.website
                                 : ""
                             }
@@ -557,7 +559,7 @@ export default function Profile() {
               )}
             </div>
           ) : isOwner ? (
-            <div className='bg-[#1b1b1b]  rounded-xl items-center  flex space-x-1'>
+            <div className='bg-[#1b1b1b]  rounded-xl md:items-center w-20 flex space-x-1'>
               <Dialog>
                 <DialogTrigger asChild>
                   <Button className='flex space-x-1 items-center'>
@@ -565,7 +567,7 @@ export default function Profile() {
                     <BadgePlus size={20} color='#06D001' />
                   </Button>
                 </DialogTrigger>
-                <DialogContent className='sm:max-w-[425px] border-zinc-700 text-white bg-black'>
+                <DialogContent className='sm:w-[380px] border-zinc-700 text-white bg-black'>
                   <DialogHeader>
                     <DialogTitle>Connect Your Socials</DialogTitle>
                     <DialogDescription className='text-zinc-300'>
@@ -585,7 +587,7 @@ export default function Profile() {
                       <Input
                         ref={githubRef}
                         defaultValue={
-                          userData.social.github ? userData.social.github : ""
+                          userData.social?.github ? userData.social.github : ""
                         }
                         className='bg-black w-60 h-8'
                       />
@@ -593,7 +595,7 @@ export default function Profile() {
                       <Input
                         ref={linkedinRef}
                         defaultValue={
-                          userData.social.linkedin
+                          userData.social?.linkedin
                             ? userData.social.linkedin
                             : ""
                         }
@@ -602,14 +604,18 @@ export default function Profile() {
                       <Input
                         ref={twitterRef}
                         defaultValue={
-                          userData.social.twitter ? userData.social.twitter : ""
+                          userData.social?.twitter
+                            ? userData.social.twitter
+                            : ""
                         }
                         className='bg-black w-60 h-8'
                       />
                       <Input
                         ref={websiteRef}
                         defaultValue={
-                          userData.social.website ? userData.social.website : ""
+                          userData.social?.website
+                            ? userData.social.website
+                            : ""
                         }
                         className='bg-black w-60 h-8'
                       />
