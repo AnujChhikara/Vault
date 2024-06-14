@@ -8,6 +8,12 @@ export interface User extends Document {
   verifyCode?: string;
   verifyCodeExpiry?: Date;
   bio?: string;
+  social?: {
+    github?: string;
+    linkedin?: string;
+    website?: string;
+    twitter?: string;
+  };
   isVerified: boolean;
   codeCred?: number;
 }
@@ -48,6 +54,12 @@ const UserSchema: Schema<User> = new Schema({
   },
   bio: {
     type: String,
+  },
+  social: {
+    github: { type: String },
+    linkedin: { type: String },
+    website: { type: String },
+    twitter: { type: String },
   },
 });
 
