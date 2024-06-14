@@ -4,18 +4,41 @@ import { ApiResponse } from "@/types/ApiResponse";
 import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CodeBlock from "@/components/Sections/codeBlock";
-import { ChevronFirst } from "lucide-react";
+import { ChevronFirst, Divide, Edit, Loader2, SquarePen } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { User } from "next-auth";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function Profile() {
+  const { toast } = useToast();
   const params = useParams<{ username: string }>();
   const username = params.username;
+  const { data: session } = useSession();
+  const user: User = session?.user as User;
   const [errorMessage, setErrorMessage] = useState("");
   const [userData, setUserData] = useState<any>();
   const [loading, setLoading] = useState(true);
   const [userCodeData, setUserCodeData] = useState<any>();
   const [cred, setCred] = useState(0);
+  const [isOwner, setIsOwner] = useState(false);
+  const bioRef = useRef<HTMLTextAreaElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [processing, setProcessing] = useState(false);
+  const [charCount, setCharCount] = useState(200);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -24,6 +47,9 @@ export default function Profile() {
         const data = response.data.data;
         if (data) {
           setUserData(data);
+          console.log(data.bio.length);
+
+          setCharCount(200 - (data.bio ? data.bio.length : 0));
         }
       } catch (error) {
         const axiosError = error as AxiosError<ApiResponse>;
@@ -64,26 +90,70 @@ export default function Profile() {
     }
   }, [userData]);
 
-  useEffect(() => {
-    const fetchUserVotes = async () => {
-      try {
-        const response = await axios.get(
-          `/api/userTotalVotes?userId=${userData._id}`
-        );
-        const data = response.data.data;
-        setCred(data[0].totalVotes);
-      } catch (error) {
-        const axiosError = error as AxiosError<ApiResponse>;
-        setErrorMessage(
-          axiosError.response?.data.message || "Error fetching vote status"
-        );
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUserVotes = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `/api/userTotalVotes?userId=${userData._id}`
+  //       );
+  //       const data = response.data.data;
+  //       setCred(data[0].totalVotes);
+  //     } catch (error) {
+  //       const axiosError = error as AxiosError<ApiResponse>;
+  //       setErrorMessage(
+  //         axiosError.response?.data.message || "Error fetching vote status"
+  //       );
+  //     }
+  //   };
 
-    if (userData) {
-      fetchUserVotes();
+  //   if (userData) {
+  //     fetchUserVotes();
+  //   }
+  // }, [userData]);
+
+  useEffect(() => {
+    if (user && userData) {
+      if (user._id == userData._id) {
+        setIsOwner(true);
+      }
     }
-  }, [userData]);
+  }, [userData, user]);
+
+  const handleBioChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newBio = event.target.value;
+    setCharCount(200 - newBio.length);
+  };
+
+  // updating bio
+  const updateUserBio = async () => {
+    setProcessing(true);
+    try {
+      const response = await axios.post(`/api/update-bio`, {
+        userId: userData._id,
+        bio: bioRef.current!.value,
+      });
+
+      const data = response.data.data;
+      if (data) {
+        setUserData({ ...userData, bio: bioRef.current!.value });
+        toast({
+          title: "Bio updated successfully",
+        });
+      } else {
+        toast({
+          title: "Bio update failed!",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Bio update failed!",
+        variant: "destructive",
+      });
+    }
+    buttonRef.current?.click();
+    setProcessing(false);
+  };
 
   return (
     <div className='bg-black min-h-screen text-white'>
@@ -103,10 +173,175 @@ export default function Profile() {
               </span>
             </button>
           </div>
-          <div className='flex space-x-4 items-center'>
+          <div className='flex flex-col items-start space-y-4'>
             <h3 className='text-2xl font-semibold text-zinc-100'>
               @{userData.username.toUpperCase()}
             </h3>
+            {userData.bio ? (
+              <div className='bg-[#1b1b1b] md:p-4 sm:p-2 rounded-lg flex space-x-2 md:items-center'>
+                <p className='text-sm text-zinc-300 sm:w-[250px]  break-all md:w-auto '>
+                  {userData.bio}
+                </p>
+                <div className=''>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button className=''>
+                        <SquarePen size={22} />
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className='sm:w-[340px] md:w-[425px] border-zinc-700 text-white bg-black'>
+                      <DialogHeader>
+                        <DialogTitle>Update Bio</DialogTitle>
+                        <DialogDescription className='text-zinc-300'>
+                          Update your profile information below. When
+                          you&apos;re finished, click Save
+                        </DialogDescription>
+                      </DialogHeader>
+
+                      <div className='flex flex-col'>
+                        <Textarea
+                          id='bio'
+                          ref={bioRef}
+                          maxLength={200}
+                          placeholder='write here..'
+                          defaultValue={userData.bio ? userData.bio : ""}
+                          className=' bg-black border-zinc-500 '
+                          rows={8}
+                          onChange={handleBioChange}
+                        />
+                        <div className='text-right text-sm text-zinc-400'>
+                          {charCount == 0 ? (
+                            <div className='text-red-500'>
+                              {charCount} characters remaining
+                            </div>
+                          ) : (
+                            <div>{charCount} characters remaining</div>
+                          )}
+                        </div>
+                      </div>
+
+                      <DialogFooter>
+                        {processing ? (
+                          <Button
+                            className='px-6'
+                            onClick={updateUserBio}
+                            type='submit'
+                            disabled
+                          >
+                            <Loader2 className='mr-2 h-4 w-4 animate-spin' />{" "}
+                            saving...
+                          </Button>
+                        ) : (
+                          <>
+                            {charCount >= 0 ? (
+                              <Button
+                                className='px-6'
+                                onClick={updateUserBio}
+                                type='submit'
+                              >
+                                Save
+                              </Button>
+                            ) : (
+                              <Button
+                                className='px-6'
+                                onClick={updateUserBio}
+                                disabled
+                                variant='destructive'
+                              >
+                                Save
+                              </Button>
+                            )}
+                          </>
+                        )}
+                      </DialogFooter>
+                      <DialogClose asChild>
+                        <button ref={buttonRef} className='hidden'>
+                          close
+                        </button>
+                      </DialogClose>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              </div>
+            ) : isOwner ? (
+              <div className='bg-[#1b1b1b]  rounded-xl items-center  flex space-x-1'>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className='flex space-x-1 items-center'>
+                      <p>Add Bio</p> <SquarePen size={20} />
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className='sm:max-w-[425px] border-zinc-700 text-white bg-black'>
+                    <DialogHeader>
+                      <DialogTitle>Update Bio</DialogTitle>
+                      <DialogDescription className='text-zinc-300'>
+                        Update your profile information below. When you&apos;re
+                        finished, click Save
+                      </DialogDescription>
+                    </DialogHeader>
+
+                    <div className='flex flex-col'>
+                      <Textarea
+                        id='bio'
+                        ref={bioRef}
+                        maxLength={200}
+                        placeholder='write here..'
+                        defaultValue={userData.bio ? userData.bio : ""}
+                        className=' bg-black border-zinc-500 '
+                        rows={8}
+                        onChange={handleBioChange}
+                      />
+                      <div className='text-right text-sm text-zinc-400'>
+                        {charCount == 0 ? (
+                          <div className='text-red-500'>
+                            {charCount} characters remaining
+                          </div>
+                        ) : (
+                          <div>{charCount} characters remaining</div>
+                        )}
+                      </div>
+                    </div>
+
+                    <DialogFooter>
+                      {processing ? (
+                        <Button
+                          className='px-6'
+                          onClick={updateUserBio}
+                          type='submit'
+                          disabled
+                        >
+                          <Loader2 className='mr-2 h-4 w-4 animate-spin' />{" "}
+                          saving...
+                        </Button>
+                      ) : (
+                        <>
+                          {charCount >= 0 ? (
+                            <Button
+                              className='px-6'
+                              onClick={updateUserBio}
+                              type='submit'
+                            >
+                              Save
+                            </Button>
+                          ) : (
+                            <Button
+                              className='px-6'
+                              onClick={updateUserBio}
+                              disabled
+                              variant='destructive'
+                            >
+                              Save
+                            </Button>
+                          )}
+                        </>
+                      )}
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           <div className='flex flex-col space-y-4'>
             <p className='text-xl font-semibold underline text-zinc-200'>
