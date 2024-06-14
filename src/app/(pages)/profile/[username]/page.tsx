@@ -182,86 +182,90 @@ export default function Profile() {
                 <p className='text-sm text-zinc-300 sm:w-[250px]  break-all md:w-auto '>
                   {userData.bio}
                 </p>
-                <div className=''>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button className=''>
-                        <SquarePen size={22} />
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className='sm:w-[340px] md:w-[425px] border-zinc-700 text-white bg-black'>
-                      <DialogHeader>
-                        <DialogTitle>Update Bio</DialogTitle>
-                        <DialogDescription className='text-zinc-300'>
-                          Update your profile information below. When
-                          you&apos;re finished, click Save
-                        </DialogDescription>
-                      </DialogHeader>
+                {isOwner ? (
+                  <div className=''>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button className=''>
+                          <SquarePen size={22} />
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className='sm:w-[340px] md:w-[425px] border-zinc-700 text-white bg-black'>
+                        <DialogHeader>
+                          <DialogTitle>Update Bio</DialogTitle>
+                          <DialogDescription className='text-zinc-300'>
+                            Update your profile information below. When
+                            you&apos;re finished, click Save
+                          </DialogDescription>
+                        </DialogHeader>
 
-                      <div className='flex flex-col'>
-                        <Textarea
-                          id='bio'
-                          ref={bioRef}
-                          maxLength={200}
-                          placeholder='write here..'
-                          defaultValue={userData.bio ? userData.bio : ""}
-                          className=' bg-black border-zinc-500 '
-                          rows={8}
-                          onChange={handleBioChange}
-                        />
-                        <div className='text-right text-sm text-zinc-400'>
-                          {charCount == 0 ? (
-                            <div className='text-red-500'>
-                              {charCount} characters remaining
-                            </div>
-                          ) : (
-                            <div>{charCount} characters remaining</div>
-                          )}
-                        </div>
-                      </div>
-
-                      <DialogFooter>
-                        {processing ? (
-                          <Button
-                            className='px-6'
-                            onClick={updateUserBio}
-                            type='submit'
-                            disabled
-                          >
-                            <Loader2 className='mr-2 h-4 w-4 animate-spin' />{" "}
-                            saving...
-                          </Button>
-                        ) : (
-                          <>
-                            {charCount >= 0 ? (
-                              <Button
-                                className='px-6'
-                                onClick={updateUserBio}
-                                type='submit'
-                              >
-                                Save
-                              </Button>
+                        <div className='flex flex-col'>
+                          <Textarea
+                            id='bio'
+                            ref={bioRef}
+                            maxLength={200}
+                            placeholder='write here..'
+                            defaultValue={userData.bio ? userData.bio : ""}
+                            className=' bg-black border-zinc-500 '
+                            rows={8}
+                            onChange={handleBioChange}
+                          />
+                          <div className='text-right text-sm text-zinc-400'>
+                            {charCount == 0 ? (
+                              <div className='text-red-500'>
+                                {charCount} characters remaining
+                              </div>
                             ) : (
-                              <Button
-                                className='px-6'
-                                onClick={updateUserBio}
-                                disabled
-                                variant='destructive'
-                              >
-                                Save
-                              </Button>
+                              <div>{charCount} characters remaining</div>
                             )}
-                          </>
-                        )}
-                      </DialogFooter>
-                      <DialogClose asChild>
-                        <button ref={buttonRef} className='hidden'>
-                          close
-                        </button>
-                      </DialogClose>
-                    </DialogContent>
-                  </Dialog>
-                </div>
+                          </div>
+                        </div>
+
+                        <DialogFooter>
+                          {processing ? (
+                            <Button
+                              className='px-6'
+                              onClick={updateUserBio}
+                              type='submit'
+                              disabled
+                            >
+                              <Loader2 className='mr-2 h-4 w-4 animate-spin' />{" "}
+                              saving...
+                            </Button>
+                          ) : (
+                            <>
+                              {charCount >= 0 ? (
+                                <Button
+                                  className='px-6'
+                                  onClick={updateUserBio}
+                                  type='submit'
+                                >
+                                  Save
+                                </Button>
+                              ) : (
+                                <Button
+                                  className='px-6'
+                                  onClick={updateUserBio}
+                                  disabled
+                                  variant='destructive'
+                                >
+                                  Save
+                                </Button>
+                              )}
+                            </>
+                          )}
+                        </DialogFooter>
+                        <DialogClose asChild>
+                          <button ref={buttonRef} className='hidden'>
+                            close
+                          </button>
+                        </DialogClose>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
             ) : isOwner ? (
               <div className='bg-[#1b1b1b]  rounded-xl items-center  flex space-x-1'>
