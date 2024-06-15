@@ -47,17 +47,7 @@ const TrendingPage = () => {
   };
 
   return (
-    <div className='min-h-screen bg-black text-gray-100 pt-4 md:px-12 sm:px-4 flex flex-col items-start'>
-      <div className=' text-slate-200 font-bold   hover:slate-300 duration-500  md:text-end sm:text-start pb-8'>
-        <button className='inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium  rounded-lg group bg-gradient-to-br from-zinc-500 to-zinc-800   text-white'>
-          <span className=' px-3 py-1.5 transition-all ease-in duration-300 bg-zinc-900 rounded-md group-hover:bg-opacity-50'>
-            <Link href='/' className='flex items-center'>
-              <ChevronFirst size={20} />{" "}
-              <p className='text-[12px] font-semibold'>Home</p>
-            </Link>
-          </span>
-        </button>
-      </div>
+    <div className='min-h-screen  text-gray-100 pt-12 flex flex-col items-start'>
       <h1 className='text-4xl font-bold mb-8'>Trending Codes</h1>
 
       <div className='flex mb-4 sm:text-sm md:text-base font-semibold'>
@@ -92,8 +82,8 @@ const TrendingPage = () => {
       ) : errorMessage ? (
         <div>{errorMessage}</div>
       ) : (
-        <div className='flex flex-col'>
-          {codeData &&
+        <div className='sm:grid pt-6 sm:grid-cols-1 sm:gap-y-1  md:grid-cols-1 md:gap-y-0 md:gap-x-4 md:gap-b-4 lg:grid-cols-2 lg:gap-r-4 lg:gap-b-4'>
+          {codeData && codeData.length > 0 ? (
             codeData.map((code: any) => (
               <div key={code._id}>
                 <CodeBlock
@@ -103,7 +93,10 @@ const TrendingPage = () => {
                   keywords={code.code.keywords}
                 />
               </div>
-            ))}
+            ))
+          ) : (
+            <div className='text-center '>No code posted yet.</div>
+          )}
         </div>
       )}
     </div>

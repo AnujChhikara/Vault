@@ -212,27 +212,22 @@ export default function Profile() {
   };
 
   return (
-    <div className='bg-black min-h-screen text-white'>
+    <div className=' min-h-screen '>
       {loading ? (
         <div className='flex flex-col justify-center items-center space-y-4 min-h-screen'>
           <p>Loading...</p>
         </div>
       ) : userData ? (
-        <div className='flex flex-col space-y-8 md:w-5/6 sm:w-11/12 pt-4 md:items-start md:px-20 sm:px-4'>
-          <div className=' text-slate-200 font-bold  hover:slate-300 duration-500  md:text-end sm:text-start pb-4'>
-            <button className='inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium  rounded-lg group bg-gradient-to-br from-zinc-500 to-zinc-800   text-white'>
-              <span className=' px-3 py-1.5 transition-all ease-in duration-300 bg-zinc-900 rounded-md group-hover:bg-opacity-50'>
-                <Link href='/' className='flex items-center'>
-                  <ChevronFirst size={20} />{" "}
-                  <p className='text-[12px] font-semibold'>Home</p>
-                </Link>
-              </span>
-            </button>
-          </div>
+        <div className='flex flex-col space-y-8 pt-12 md:items-start '>
           <div className='flex flex-col items-start space-y-4'>
-            <h3 className='text-2xl font-semibold text-zinc-100'>
-              {userData.username}
-            </h3>
+            <div className='flex space-x-3 items-center'>
+              <div className='w-12 h-12 bg-[#1b1b1b] text-lg font-bold rounded-full flex justify-center items-center'>
+                {userData.username.toUpperCase()[0]}
+              </div>
+              <h3 className='text-2xl font-semibold text-zinc-100'>
+                {userData.username}
+              </h3>
+            </div>
             {userData.bio ? (
               <div className='bg-[#1b1b1b] md:p-4 sm:p-2 rounded-lg flex space-x-2 md:items-center'>
                 <p className='text-sm text-zinc-300 sm:w-[250px]  break-all md:w-auto '>
@@ -647,13 +642,13 @@ export default function Profile() {
           )}
 
           <div className='flex flex-col space-y-4'>
-            <p className='text-xl font-semibold underline text-zinc-200'>
-              Code Snippets:
+            <p className='text-2xl font-semibold  text-zinc-200'>
+              Code Snippets:-
             </p>
             {userCodeData && (
-              <div>
+              <div className='sm:grid pt-6 sm:grid-cols-1 sm:gap-y-1  md:grid-cols-1 md:gap-y-0 md:gap-x-4 md:gap-b-4 lg:grid-cols-2 lg:gap-r-4 lg:gap-b-4'>
                 {userCodeData.map((code: any) => (
-                  <div key={code._id} className='gap-4'>
+                  <div key={code._id} className=''>
                     <CodeBlock
                       title={code.title}
                       id={code._id}

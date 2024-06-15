@@ -202,7 +202,7 @@ export default function Code() {
   };
 
   return (
-    <div className='bg-black/[0.96] min-h-screen text-white'>
+    <div className=' min-h-screen '>
       {loading ? (
         <div className='flex flex-col justify-center items-center space-y-4 min-h-screen'>
           <p>Loading...</p>
@@ -210,17 +210,7 @@ export default function Code() {
       ) : (
         <div>
           {codeData ? (
-            <div className='flex flex-col space-y-4 md:w-5/6 items-start md:px-20 sm:px-4 pt-4'>
-              <div className=' text-slate-200 font-bold  hover:slate-300 duration-500  md:text-end sm:text-start pb-4'>
-                <button className='inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium  rounded-lg group bg-gradient-to-br from-zinc-500 to-zinc-800   text-white'>
-                  <span className=' px-3 py-1.5 transition-all ease-in duration-300 bg-zinc-900 rounded-md group-hover:bg-opacity-50'>
-                    <Link href='/' className='flex items-center'>
-                      <ChevronFirst size={20} />{" "}
-                      <p className='text-[12px] font-semibold'>Home</p>
-                    </Link>
-                  </span>
-                </button>
-              </div>
+            <div className='flex flex-col space-y-4 md:w-5/6 items-start md:px-20 sm:px-4 pt-12'>
               <div className='sm:flex md:flex sm:flex-col md:flex-row justify-between md:space-x-4 sm:space-y-4 md:space-y-0 items-start pb-6'>
                 <h4 className='md:text-5xl sm:text-3xl font-semibold'>
                   {codeData.title}

@@ -71,17 +71,7 @@ export default function NewCode() {
   };
 
   return (
-    <div className='bg-black/[0.96] w-screen flex flex-col justify-center sm:px-4 md:px-8 pt-4 md:items-start min-h-screen text-white'>
-      <div className=' text-slate-200 font-bold  hover:slate-300 duration-500  md:text-end sm:text-start pb-8'>
-        <button className='inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium  rounded-lg group bg-gradient-to-br from-zinc-500 to-zinc-800   text-white'>
-          <span className=' px-3 py-1.5 transition-all ease-in duration-300 bg-zinc-900 rounded-md group-hover:bg-opacity-50'>
-            <Link href='/' className='flex items-center'>
-              <ChevronFirst size={20} />{" "}
-              <p className='text-[12px] font-semibold'>Home</p>
-            </Link>
-          </span>
-        </button>
-      </div>
+    <div className=' w-screen flex flex-col justify-center  pt-12 md:items-start min-h-screen'>
       <h4 className='text-[35px] font-bold pb-4  md:h-5/6 underline text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-pink-500 to-pink-700'>
         Add New Code
       </h4>
