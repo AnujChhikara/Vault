@@ -64,16 +64,6 @@ export default function SearchResult() {
             </div>
           ) : (
             <div className='flex flex-col space-y-4 items-start justify-start w-screen sm:px-4 md:px-12'>
-              <div className=' text-slate-200 font-bold  hover:slate-300 duration-500  md:text-end sm:text-start pb-8'>
-                <button className='inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium  rounded-lg group bg-gradient-to-br from-zinc-500 to-zinc-800   text-white'>
-                  <span className=' px-3 py-1.5 transition-all ease-in duration-300 bg-zinc-900 rounded-md group-hover:bg-opacity-50'>
-                    <Link href='/' className='flex items-center'>
-                      <ChevronFirst size={20} />{" "}
-                      <p className='text-[12px] font-semibold'>Home</p>
-                    </Link>
-                  </span>
-                </button>
-              </div>
               <h2>Search results...</h2>
               <div className='flex flex-col space-y-4 '>
                 {resultData.map((item) => (
