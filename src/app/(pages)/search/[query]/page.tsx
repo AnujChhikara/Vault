@@ -7,8 +7,6 @@ import { ApiResponse } from "@/types/ApiResponse";
 import SkeletonComponent from "@/components/Sections/skeleton";
 import CodeBlock from "@/components/Sections/codeBlock";
 import Link from "next/link";
-import { set } from "mongoose";
-import { ChevronFirst } from "lucide-react";
 
 export default function SearchResult() {
   const { query } = useParams();
@@ -40,9 +38,9 @@ export default function SearchResult() {
   }, [query]);
 
   return (
-    <div className=' w-full h-full min-h-screen  flex justify-center items-start'>
+    <div className='min-h-screen flex  justify-start'>
       {loading ? (
-        <div className='flex flex-col items-start w-screen space-y-8'>
+        <div className='flex flex-col space-y-8'>
           <SkeletonComponent />
           <SkeletonComponent />
           <SkeletonComponent />
@@ -50,7 +48,7 @@ export default function SearchResult() {
         </div>
       ) : (
         <div className=''>
-          {resultData && resultData.length === 0 ? (
+          {(resultData && resultData.length === 0) || errorMessage ? (
             <div className='flex flex-col justify-center items-center space-y-4'>
               <h3 className='text-xl '>
                 Unfortunately, no results were found for your search.
@@ -63,9 +61,9 @@ export default function SearchResult() {
               </Link>
             </div>
           ) : (
-            <div className='flex flex-col space-y-4 items-start justify-start w-screen sm:px-4 md:px-12'>
-              <h2>Search results...</h2>
-              <div className='flex flex-col space-y-4 '>
+            <div className='flex flex-col space-y-4 items-start justify-start pt-4'>
+              <h2 className='text-zinc-400'>Search results...</h2>
+              <div className='flex flex-col md:space-y-4 '>
                 {resultData.map((item) => (
                   <CodeBlock
                     key={item._id}

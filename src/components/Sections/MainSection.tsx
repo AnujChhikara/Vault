@@ -85,7 +85,7 @@ export default function MainSection() {
         onSubmit={onSubmit}
       /> */}
         {/* brief info */}
-        <p className='mt-4  sm:px-2 sm:w-96 md:w-auto sm:text-sm tracking-wide  text-center font-semibold  text-neutral-300 max-w-3xl mx-auto'>
+        <p className='mt-4  sm:px-2 sm:w-96 md:w-auto sm:text-sm md:text-lg tracking-wide  text-center font-semibold  text-neutral-300 max-w-3xl mx-auto'>
           Introducing DevVault, your ultimate destination for storing and
           discovering reusable code snippets. Whether you&lsquo;re in need of
           quick solutions or fundamental configurations, DevVault provides

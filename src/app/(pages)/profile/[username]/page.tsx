@@ -16,6 +16,7 @@ import {
   Twitter,
   LinkIcon,
   Link2,
+  Info,
 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { User } from "next-auth";
@@ -33,6 +34,11 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 export default function Profile() {
   const { toast } = useToast();
@@ -104,26 +110,26 @@ export default function Profile() {
     }
   }, [userData]);
 
-  // useEffect(() => {
-  //   const fetchUserVotes = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `/api/userTotalVotes?userId=${userData._id}`
-  //       );
-  //       const data = response.data.data;
-  //       setCred(data[0].totalVotes);
-  //     } catch (error) {
-  //       const axiosError = error as AxiosError<ApiResponse>;
-  //       setErrorMessage(
-  //         axiosError.response?.data.message || "Error fetching vote status"
-  //       );
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchUserVotes = async () => {
+      try {
+        const response = await axios.get(
+          `/api/userTotalVotes?userId=${userData._id}`
+        );
+        const data = response.data.data;
+        setCred(data[0].totalVotes);
+      } catch (error) {
+        const axiosError = error as AxiosError<ApiResponse>;
+        setErrorMessage(
+          axiosError.response?.data.message || "Error fetching vote status"
+        );
+      }
+    };
 
-  //   if (userData) {
-  //     fetchUserVotes();
-  //   }
-  // }, [userData]);
+    if (userData) {
+      fetchUserVotes();
+    }
+  }, [userData]);
 
   useEffect(() => {
     if (user && userData) {
@@ -640,6 +646,24 @@ export default function Profile() {
           ) : (
             ""
           )}
+
+          <div className='flex items-center space-x-2'>
+            <p className='font-bold text-xl'>CodeCreds:</p>
+            <p className='text-lg font-semibold bg-zinc-800 px-4 rounded-xl  py-1'>
+              {cred}
+            </p>
+            <p>
+              <HoverCard>
+                <HoverCardTrigger>
+                  <Info size={22} />
+                </HoverCardTrigger>
+                <HoverCardContent className='bg-black border-none text-[12px] w-32 text-white '>
+                  The cumulative votes received by one&apos;s code snippets
+                </HoverCardContent>
+              </HoverCard>
+            </p>
+            <p></p>
+          </div>
 
           <div className='flex flex-col space-y-4'>
             <p className='text-2xl font-semibold  text-zinc-200'>
