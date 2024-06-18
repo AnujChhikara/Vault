@@ -72,9 +72,9 @@ export default function MainSection() {
 
         {/* heading */}
 
-        <h3 className='w-96 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 font-bold text-3xl flex justify-center sm:block md:hidden'>
+        <h2 className='w-96 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 font-bold text-3xl flex justify-center sm:block md:hidden'>
           Focus on Logic, Let us Memorize Code for you
-        </h3>
+        </h2>
         <TypewriterEffectSmooth words={words} />
 
         {/* Search */}
