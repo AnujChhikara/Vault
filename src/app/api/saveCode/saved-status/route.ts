@@ -1,5 +1,5 @@
 import dbConnect from "@/lib/dbConnect";
-import { VotingModel } from "@/model/Vote";
+import { SavingModel } from "@/model/Save";
 
 export async function GET(request: Request) {
   await dbConnect();
@@ -9,25 +9,25 @@ export async function GET(request: Request) {
     const codeId = searchParams.get("codeId");
     const userId = searchParams.get("userId");
 
-    const vote = await VotingModel.findOne({ codeId, userId });
-    if (vote) {
+    const isSaved = await SavingModel.findOne({ codeId, userId });
+    if (isSaved) {
       return Response.json(
         {
           success: true,
-          message: "Successfully fetch vote status",
-          data: vote,
+          message: "Successfully fetch isSaved status",
+          data: isSaved,
         },
         { status: 200 }
       );
     }
     return Response.json(
-      { success: false, message: "Error fetching vote status" },
+      { success: false, message: "Code is not saved" },
       { status: 200 }
     );
   } catch (error) {
-    console.log("Error while upvoting", error);
+    console.log("Error while checking isSaved", error);
     return Response.json(
-      { success: false, message: "Error finding vote status code" },
+      { success: false, message: "Error finding isSaved status code" },
       { status: 500 }
     );
   }

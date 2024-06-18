@@ -31,6 +31,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
@@ -60,6 +62,7 @@ export default function Profile() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [processing, setProcessing] = useState(false);
   const [charCount, setCharCount] = useState(200);
+  const [savedSnippets, setSavedSnippets] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -216,6 +219,28 @@ export default function Profile() {
     buttonRef.current?.click();
     setProcessing(false);
   };
+
+  //getting user saved snippets
+  useEffect(() => {
+    const fetchUserSavedCode = async () => {
+      try {
+        const response = await axios.get(
+          `/api/saveCode/user-saved-code?userId=${userData._id}`
+        );
+        const data = response.data.data;
+        setSavedSnippets(data[0].codes);
+      } catch (error) {
+        const axiosError = error as AxiosError<ApiResponse>;
+        setErrorMessage(
+          axiosError.response?.data.message || "Error fetching saved snippets "
+        );
+      }
+    };
+
+    if (userData) {
+      fetchUserSavedCode();
+    }
+  }, [userData]);
 
   return (
     <div className=' min-h-screen '>
@@ -411,7 +436,7 @@ export default function Profile() {
             <div className=' md:p-4 sm:p-2 rounded-lg flex space-x-2 md:items-center'>
               <div className='text-sm text-zinc-300 sm:w-[250px] md:flex gap-3 sm:flex sm:flex-wrap  md:w-auto '>
                 {userData.social.linkedin ? (
-                  <div className=''>
+                  <div className='hover:bg-zinc-700 p-2 rounded-lg duration-300'>
                     <a
                       className='text-zinc-300 flex space-x-2 items-end'
                       href={userData.social.linkedin}
@@ -425,7 +450,7 @@ export default function Profile() {
                   <></>
                 )}
                 {userData.social.github ? (
-                  <div className=''>
+                  <div className='hover:bg-zinc-700 p-2 rounded-lg duration-300'>
                     <a
                       className='text-zinc-300 flex space-x-2 items-end'
                       href={userData.social.github}
@@ -439,7 +464,7 @@ export default function Profile() {
                   <></>
                 )}
                 {userData.social.twitter ? (
-                  <div className=''>
+                  <div className='hover:bg-zinc-700 p-2 rounded-lg duration-300'>
                     <a
                       className='text-zinc-300 flex space-x-2 items-end'
                       href={userData.social.twitter}
@@ -451,7 +476,7 @@ export default function Profile() {
                   <></>
                 )}
                 {userData.social.website ? (
-                  <div className=''>
+                  <div className='hover:bg-zinc-700 p-2 rounded-lg duration-300'>
                     <a
                       className='text-zinc-300 flex space-x-2 items-end'
                       href={userData.social.website}
@@ -647,6 +672,8 @@ export default function Profile() {
             ""
           )}
 
+          {/* codeCreds */}
+
           <div className='flex items-center space-x-2'>
             <p className='font-bold text-xl'>CodeCreds:</p>
             <p className='text-lg font-semibold bg-zinc-800 px-4 rounded-xl  py-1'>
@@ -665,24 +692,57 @@ export default function Profile() {
             <p></p>
           </div>
 
-          <div className='flex flex-col space-y-4'>
-            <p className='text-2xl font-semibold  text-zinc-200'>
-              Code Snippets:-
-            </p>
-            {userCodeData && (
-              <div className='sm:grid pt-6 sm:grid-cols-1 sm:gap-y-1  md:grid-cols-1 md:gap-y-0 md:gap-x-4 md:gap-b-4 lg:grid-cols-2 lg:gap-r-4 lg:gap-b-4'>
-                {userCodeData.map((code: any) => (
-                  <div key={code._id} className=''>
-                    <CodeBlock
-                      title={code.title}
-                      id={code._id}
-                      keywords={code.keywords}
-                    />
+          {/* code snippets and saved code snippets */}
+
+          <Tabs defaultValue='code' className='md:w-auto sm:w-[310px]'>
+            <TabsList className=''>
+              <TabsTrigger className=' font-semibold' value='code'>
+                Code Snippets
+              </TabsTrigger>
+              <TabsTrigger className=' font-semibold' value='saved'>
+                Bookmarked Code
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value='code'>
+              <div className='flex flex-col space-y-4'>
+                {userCodeData && userCodeData.length > 0 ? (
+                  <div className='sm:grid pt-6 sm:grid-cols-1 sm:gap-y-1  md:grid-cols-1 md:gap-y-0 md:gap-x-4 md:gap-b-4 lg:grid-cols-2 lg:gap-r-4 lg:gap-b-4'>
+                    {userCodeData.map((code: any) => (
+                      <div key={code._id} className=''>
+                        <CodeBlock
+                          title={code.title}
+                          id={code._id}
+                          keywords={code.keywords}
+                        />
+                      </div>
+                    ))}
                   </div>
-                ))}
+                ) : (
+                  <p className='text-white'>No code snippets</p>
+                )}
               </div>
-            )}
-          </div>
+            </TabsContent>
+            <TabsContent value='saved'>
+              {" "}
+              <div className='flex flex-col space-y-4'>
+                {savedSnippets && savedSnippets.length > 0 ? (
+                  <div className='sm:grid pt-6 sm:grid-cols-1 sm:gap-y-1  md:grid-cols-1 md:gap-y-0 md:gap-x-4 md:gap-b-4 lg:grid-cols-2 lg:gap-r-4 lg:gap-b-4'>
+                    {savedSnippets.map((code: any) => (
+                      <div key={code._id} className=''>
+                        <CodeBlock
+                          title={code.title}
+                          id={code._id}
+                          keywords={code.keywords}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className='text-white'>No saved snippets</p>
+                )}
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       ) : (
         <div className='flex flex-col justify-center items-center space-y-4 min-h-screen'>

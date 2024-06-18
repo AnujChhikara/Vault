@@ -7,9 +7,16 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
-import { ArrowBigUp, ChevronFirst, Copy } from "lucide-react";
+import {
+  ArrowBigUp,
+  Bookmark,
+  BookmarkCheck,
+  ChevronFirst,
+  Copy,
+  Save,
+} from "lucide-react";
 import { useSession } from "next-auth/react";
 import { User } from "next-auth";
 import {
@@ -34,6 +41,7 @@ export default function Code() {
   const [userData, setUserData] = useState<any>();
   const [voteStatus, setVoteStatus] = useState<any>("");
   const [votes, setVotes] = useState<number>(0);
+  const [isSaved, setIsSaved] = useState(false);
   const codeId = params.codeId;
   const { toast } = useToast();
   const router = useRouter();
@@ -157,6 +165,30 @@ export default function Code() {
     }
   }, [codeData, voteStatus]);
 
+  useEffect(() => {
+    const checkBookmarkedStatus = async () => {
+      if (codeData && user) {
+        try {
+          const response = await axios.get(
+            `/api/saveCode/saved-status?codeId=${codeData._id}&userId=${user._id}`
+          );
+
+          setIsSaved(response.data.success);
+        } catch (error) {
+          const axiosError = error as AxiosError<ApiResponse>;
+          setErrorMessage(
+            axiosError.response?.data.message ||
+              "Error fetching bookmark status"
+          );
+        }
+      }
+    };
+
+    if (codeData && user) {
+      checkBookmarkedStatus();
+    }
+  }, [codeData, user]);
+
   const handleCopy = (code: string) => {
     navigator.clipboard.writeText(code);
     toast({
@@ -201,6 +233,43 @@ export default function Code() {
     }
   };
 
+  const handleBookmarkCode = async () => {
+    if (codeData && userData) {
+      try {
+        const response = await axios.post(`/api/saveCode/save-code`, {
+          userId: user._id,
+          codeId: codeData._id,
+        });
+        const data = response.data;
+        setIsSaved(true);
+        toast({
+          title: "Code Bookmarked Successfully",
+          description: data.message,
+        });
+      } catch (error) {
+        console.error("Error bookmarking code", error);
+      }
+    }
+  };
+
+  const handleRemoveBookmarkCode = async () => {
+    if (codeData && userData) {
+      try {
+        const response = await axios.delete(
+          `/api/saveCode/delete-save-code?userId=${user._id}&codeId=${codeData._id}`
+        );
+        const data = response.data;
+        setIsSaved(false);
+        toast({
+          title: "Code Removed from Bookmark",
+          description: data.message,
+        });
+      } catch (error) {
+        console.error("Error removing bookmark code", error);
+      }
+    }
+  };
+
   return (
     <div className=' min-h-screen '>
       {loading ? (
@@ -210,13 +279,26 @@ export default function Code() {
       ) : (
         <div>
           {codeData ? (
-            <div className='flex flex-col space-y-4 md:w-5/6 items-start md:px-20 sm:px-4 pt-12'>
+            <div className='flex flex-col space-y-4 md:w-5/6 items-start md:px-20 sm:px-2 md:pb-8 sm:pb-4 pt-12'>
               <div className='sm:flex md:flex sm:flex-col md:flex-row justify-between md:space-x-4 sm:space-y-4 md:space-y-0 items-start pb-6'>
                 <h4 className='md:text-5xl sm:text-3xl font-semibold'>
                   {codeData.title}
                 </h4>
+              </div>
+              <div className='flex sm:flex-wrap md:flex-row  md:sw-auto md:space-x-4 sm:space-x-2 justify-between'>
+                {userData && (
+                  <Link
+                    className='flex items-center justify-end space-x-1'
+                    href={`/profile/${userData.username}`}
+                  >
+                    <p className='font-semibold text-zinc-400'>by: </p>
+                    <h5 className='pl-2 text-pink-600 text-xl font-bold'>
+                      {userData.username}
+                    </h5>
+                  </Link>
+                )}
                 <div className='flex flex-col items-start space-y-2'>
-                  <div className='flex items-center space-x-4 border border-zinc-700 px-4 py-1 rounded-3xl'>
+                  <div className='flex items-center space-x-4 border border-zinc-700 px-2 py-1 rounded-3xl'>
                     {votes ? (
                       <p className='font-bold text-pink-500 w-3'>{votes} </p>
                     ) : (
@@ -260,16 +342,16 @@ export default function Code() {
                       </div>
                     )}
                   </div>
-                  {userData && (
-                    <Link
-                      className='flex items-center justify-end space-x-1'
-                      href={`/profile/${userData.username}`}
-                    >
-                      <p className='font-semibold text-zinc-400'>by : </p>
-                      <h5 className='pl-2 text-pink-600 text-xl font-bold'>
-                        {userData.username}
-                      </h5>
-                    </Link>
+                </div>
+                <div className=''>
+                  {isSaved ? (
+                    <button onClick={handleRemoveBookmarkCode}>
+                      <BookmarkCheck color='green' size={32} />
+                    </button>
+                  ) : (
+                    <button onClick={handleBookmarkCode}>
+                      <Bookmark size={32} />
+                    </button>
                   )}
                 </div>
               </div>
