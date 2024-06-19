@@ -14,6 +14,7 @@ export interface User extends Document {
     website?: string;
     twitter?: string;
   };
+  bookmarkedStatus: boolean;
   isVerified: boolean;
   codeCred?: number;
 }
@@ -60,6 +61,10 @@ const UserSchema: Schema<User> = new Schema({
     linkedin: { type: String },
     website: { type: String },
     twitter: { type: String },
+  },
+  bookmarkedStatus: {
+    type: Boolean,
+    default: true,
   },
 });
 

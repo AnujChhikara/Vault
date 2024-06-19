@@ -145,6 +145,7 @@ export default function Profile() {
           <BookmarkedCode
             userData={userData}
             setErrorMessage={setErrorMessage}
+            isOwner={isOwner}
           />
         </div>
       ) : (
