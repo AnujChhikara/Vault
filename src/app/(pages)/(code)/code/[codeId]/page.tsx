@@ -343,17 +343,19 @@ export default function Code() {
                     )}
                   </div>
                 </div>
-                <div className=''>
-                  {isSaved ? (
-                    <button onClick={handleRemoveBookmarkCode}>
-                      <BookmarkCheck color='green' size={32} />
-                    </button>
-                  ) : (
-                    <button onClick={handleBookmarkCode}>
-                      <Bookmark size={32} />
-                    </button>
-                  )}
-                </div>
+                {session && (
+                  <div className=''>
+                    {isSaved ? (
+                      <button onClick={handleRemoveBookmarkCode}>
+                        <BookmarkCheck color='green' size={32} />
+                      </button>
+                    ) : (
+                      <button onClick={handleBookmarkCode}>
+                        <Bookmark size={32} />
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
               <div className='flex flex-col space-y-4 items-start'>
                 <p className='text-xl font-semibold'>Keywords:</p>
