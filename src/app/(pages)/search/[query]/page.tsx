@@ -49,7 +49,7 @@ export default function SearchResult() {
       ) : (
         <div className=''>
           {(resultData && resultData.length === 0) || errorMessage ? (
-            <div className='flex flex-col justify-center items-center space-y-4'>
+            <div className='flex flex-col items-center pt-20 w-screen space-y-4'>
               <h3 className='text-xl '>
                 Unfortunately, no results were found for your search.
               </h3>
