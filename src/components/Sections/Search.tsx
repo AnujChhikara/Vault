@@ -21,7 +21,7 @@ const SearchBar: React.FC = () => {
       <Input
         type='text'
         required
-        className={`bg-transparent rounded-full text-sm md:w-96 sm:w-60  ${
+        className={`bg-transparent border-2 border-zinc-600  rounded-full text-sm md:w-96 sm:w-60  ${
           query == "" ? "input-placeholder-animation" : ""
         }`}
         value={query}
