@@ -48,6 +48,7 @@ export default function MainSection() {
       />
 
       <Navbar />
+
       <div className='flex flex-col items-center pt-20 md:space-y-20 sm:space-y-16'>
         {/* logo */}
         <div className='flex justify-center space-x-4  items-center'>
