@@ -27,7 +27,7 @@ const config = {
 
         md: "720px",
 
-        lg: "1040px",
+        lg: "1370px",
       },
 
       colors: {

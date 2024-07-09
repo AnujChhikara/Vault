@@ -169,7 +169,8 @@ export default function Page() {
                 </FormItem>
               )}
             />
-            <Button type='submit' className='w-full' disabled={isSubmitting}>
+            {
+              usernameMessage === "Username is available" ? <Button type='submit' className='w-full' disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
                   <Loader2 className='mr-2 h-4 w-4 animate-spin' />
@@ -178,7 +179,8 @@ export default function Page() {
               ) : (
                 "Sign Up"
               )}
-            </Button>
+            </Button> : <Button type='submit' className='w-full' disabled> Sign Up</Button>
+            }
           </form>
         </Form>
         <div className='text-center mt-4'>

@@ -6,7 +6,7 @@ export default function Features() {
   return (
     <div className='flex flex-col items-center justify-center md:py-12 sm:py-4 '>
       <h2 className='text-4xl font-bold text-white mb-10'>Features</h2>
-      <div className='md:flex md:flex-row sm:flex sm:flex-col justify-center gap-8'>
+      <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-8'>
         <div className='sm:w-80 md:w-96 relative '>
           <div className='absolute inset-0 h-full w-full bg-gradient-to-r from-gray-300  to-black transform scale-[0.70]  rounded-full blur-3xl' />
           <div className='relative shadow-xl bg-transparent border border-zinc-800 px-4 py-8 h-full overflow-hidden rounded-2xl flex flex-col justify-end items-start'>
