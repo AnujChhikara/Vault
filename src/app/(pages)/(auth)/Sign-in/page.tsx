@@ -124,12 +124,6 @@ export default function SignInForm() {
         >
           <p>Sign in with GitHub</p> <Github />
         </Button>
-        <Button
-          onClick={googleSubmit}
-          className='flex bg-white text-black hover:bg-slate-300 space-x-2 w-full items-center'
-        >
-          <p>Sign in with Google</p> <Mail />
-        </Button>
         <div className='text-center mt-4'>
           <p>
             Not a member yet?{" "}
